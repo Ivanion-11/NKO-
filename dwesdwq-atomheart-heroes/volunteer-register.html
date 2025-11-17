@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация волонтёра | AtomHeart Heroes</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="bg-gray-900">
+    <!-- Красивый фон -->
+    <div class="background-wrapper"></div>
+    <div class="particles-container">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <custom-navbar></custom-navbar>
+    
+    <main class="main-content container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto">
+            <!-- Заголовок -->
+            <div class="text-center mb-12 fade-in-up">
+                <h1 class="text-5xl md:text-6xl font-black mb-6 gradient-text leading-tight">
+                    Стать волонтёром
+                </h1>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto font-medium">
+                    Присоединяйтесь к нашему сообществу и участвуйте в добрых делах вашего города
+                </p>
+            </div>
+
+            <!-- Кнопка назад -->
+            <div class="mb-8 fade-in-up">
+                <a href="index.html" class="btn-back btn-wave inline-flex items-center">
+                    <i data-feather="arrow-left" class="w-5 h-5"></i>
+                    Назад на главную
+                </a>
+            </div>
+
+            <!-- Форма регистрации -->
+            <div class="card p-8 fade-in-up">
+                <form id="volunteerRegisterForm" class="space-y-6">
+                    <!-- ФИО -->
+                    <div>
+                        <label for="fullName" class="block text-sm font-semibold text-gray-700 mb-3">ФИО *</label>
+                        <input type="text" id="fullName" name="fullName" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                               placeholder="Иванов Иван Иванович">
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label for="email" class="block text-sm font-semibold text-gray-700 mb-3">Email *</label>
+                        <input type="email" id="email" name="email" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                               placeholder="ivanov@example.com">
+                    </div>
+
+                    <!-- Телефон -->
+                    <div>
+                        <label for="phone" class="block text-sm font-semibold text-gray-700 mb-3">Телефон *</label>
+                        <input type="tel" id="phone" name="phone" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                               placeholder="+7 (999) 999-99-99">
+                    </div>
+
+                    <!-- Город -->
+                    <div>
+                        <label for="city" class="block text-sm font-semibold text-gray-700 mb-3">Город *</label>
+                        <select id="city" name="city" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300">
+                            <option value="">Выберите город</option>
+                            <option value="Дубна">Дубна</option>
+                            <option value="Сосновый Бор">Сосновый Бор</option>
+                            <option value="Новоуральск">Новоуральск</option>
+                            <option value="Озёрск">Озёрск</option>
+                            <option value="Обнинск">Обнинск</option>
+                            <option value="Саров">Саров</option>
+                            <option value="Железногорск">Железногорск</option>
+                            <option value="Зеленогорск">Зеленогорск</option>
+                            <option value="Полярные Зори">Полярные Зори</option>
+                            <option value="Северск">Северск</option>
+                        </select>
+                    </div>
+
+                    <!-- Навыки -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-3">Навыки и интересы</label>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                            <label class="custom-checkbox flex items-center cursor-pointer">
+                                <input type="checkbox" name="skills" value="Экология">
+                                <span class="checkmark"></span>
+                                <span class="text-gray-700">Экология</span>
+                            </label>
+                            <label class="custom-checkbox flex items-center cursor-pointer">
+                                <input type="checkbox" name="skills" value="Спорт">
+                                <span class="checkmark"></span>
+                                <span class="text-gray-700">Спорт</span>
+                            </label>
+                            <label class="custom-checkbox flex items-center cursor-pointer">
+                                <input type="checkbox" name="skills" value="Образование">
+                                <span class="checkmark"></span>
+                                <span class="text-gray-700">Образование</span>
+                            </label>
+                            <label class="custom-checkbox flex items-center cursor-pointer">
+                                <input type="checkbox" name="skills" value="Социальная помощь">
+                                <span class="checkmark"></span>
+                                <span class="text-gray-700">Социальная помощь</span>
+                            </label>
+                            <label class="custom-checkbox flex items-center cursor-pointer">
+                                <input type="checkbox" name="skills" value="Медицина">
+                                <span class="checkmark"></span>
+                                <span class="text-gray-700">Медицина</span>
+                            </label>
+                            <label class="custom-checkbox flex items-center cursor-pointer">
+                                <input type="checkbox" name="skills" value="IT">
+                                <span class="checkmark"></span>
+                                <span class="text-gray-700">IT</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- О себе -->
+                    <div>
+                        <label for="about" class="block text-sm font-semibold text-gray-700 mb-3">О себе</label>
+                        <textarea id="about" name="about" rows="4"
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                                  placeholder="Расскажите немного о себе и почему вы хотите стать волонтёром..."></textarea>
+                    </div>
+
+                    <!-- Согласие -->
+                    <div class="flex items-start space-x-3">
+                        <input type="checkbox" id="agreement" name="agreement" required 
+                               class="mt-1 text-blue-600 focus:ring-blue-500 rounded">
+                        <label for="agreement" class="text-sm text-gray-700">
+                            Я согласен с <a href="#" class="text-blue-600 hover:text-blue-700">правилами платформы</a> и 
+                            <a href="#" class="text-blue-600 hover:text-blue-700">политикой конфиденциальности</a>
+                        </label>
+                    </div>
+
+                    <!-- Кнопка регистрации -->
+                    <button type="submit" class="btn btn-primary btn-wave btn-icon w-full text-lg">
+                        <i data-feather="user-plus" class="w-6 h-6"></i>
+                        Зарегистрироваться как волонтёр
+                    </button>
+                </form>
+            </div>
+
+            <!-- Дополнительная информация -->
+            <div class="card p-8 mt-8 text-center fade-in-up">
+                <div class="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg">
+                    <i data-feather="info" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">Что дальше?</h3>
+                <p class="text-gray-600 mb-6 max-w-2xl mx-auto">
+                    После регистрации вы сможете участвовать в мероприятиях, отслеживать свою активность 
+                    и получать награды за ваши добрые дела!
+                </p>
+                <div class="grid md:grid-cols-3 gap-6 text-left">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 flex-shrink-0">
+                            <i data-feather="calendar" class="w-4 h-4"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Участвуйте в мероприятиях</h4>
+                            <p class="text-sm text-gray-600">Находите интересные события в вашем городе</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-600 flex-shrink-0">
+                            <i data-feather="award" class="w-4 h-4"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Получайте награды</h4>
+                            <p class="text-sm text-gray-600">Зарабатывайте баллы и достижения</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 flex-shrink-0">
+                            <i data-feather="users" class="w-4 h-4"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Общайтесь с единомышленниками</h4>
+                            <p class="text-sm text-gray-600">Находите новых друзей и партнёров</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <custom-footer></custom-footer>
+    
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="script.js"></script>
+    <script>
+        feather.replace();
+
+        // Обработка формы регистрации
+        document.getElementById('volunteerRegisterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalHTML = submitButton.innerHTML;
+            
+            // Показываем анимацию загрузки
+            submitButton.innerHTML = '<i data-feather="loader" class="w-6 h-6 animate-spin"></i>Регистрация...';
+            submitButton.disabled = true;
+            feather.replace();
+            
+            // Собираем данные формы
+            const formData = new FormData(this);
+            const volunteerData = {
+                fullName: formData.get('fullName'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                city: formData.get('city'),
+                skills: formData.getAll('skills'),
+                about: formData.get('about'),
+                registeredAt: new Date().toISOString()
+            };
+            
+            // Имитация регистрации (в реальном приложении здесь будет запрос к API)
+            setTimeout(() => {
+                // Сохраняем данные волонтера
+                localStorage.setItem('currentVolunteer', JSON.stringify(volunteerData));
+                
+                // Показываем успешное сообщение
+                submitButton.innerHTML = '<i data-feather="check" class="w-6 h-6"></i>Успешно зарегистрирован!';
+                submitButton.classList.remove('btn-primary');
+                submitButton.classList.add('bg-green-500', 'hover:bg-green-600');
+                
+                feather.replace();
+                
+                // Перенаправляем на главную страницу
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+                
+            }, 2000);
+        });
+
+        // Маска для телефона
+        document.getElementById('phone').addEventListener('input', function(e) {
+            let x = e.target.value.replace(/\D/g, '').match(/(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+            e.target.value = '+7' + (x[2] ? ' (' + x[2] : '') + (x[3] ? ') ' + x[3] : '') + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '');
+        });
+    </script>
+</body>
+</html>

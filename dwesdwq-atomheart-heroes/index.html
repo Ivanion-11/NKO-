@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AtomHeart Heroes | Добрые дела Росатома</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body class="bg-gray-900">
+    <!-- Супер-красивый фон -->
+    <div class="background-wrapper"></div>
+    <div class="particles-container">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <custom-navbar></custom-navbar>
+    
+    <main class="main-content container mx-auto px-4 py-8">
+        <!-- CTA Section - будет обновляться динамически -->
+        <div id="ctaSection">
+            <!-- Call to Action -->
+            <section class="glass-dark rounded-3xl p-12 md:p-16 text-white mb-16 text-center fade-in-up">
+                <div class="relative z-10">
+                    <div class="w-24 h-24 mx-auto mb-8 rounded-3xl bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white text-2xl shadow-2xl">
+                        <i data-feather="heart" class="w-12 h-12"></i>
+                    </div>
+                    <h2 class="text-5xl md:text-6xl font-black mb-8 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent leading-tight">
+                        Станьте частью<br>добрых дел!
+                    </h2>
+                    <p class="text-xl md:text-2xl mb-12 max-w-3xl mx-auto opacity-90 leading-relaxed">
+                        Присоединяйтесь к волонтёрскому движению в вашем городе<br>или зарегистрируйте свою организацию
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-6 stagger-animate">
+                        <!-- Кнопка 1 - Стать волонтёром -->
+                        <a href="volunteer-register.html" class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 hover:from-blue-600 hover:to-purple-700 border-2 border-transparent hover:border-white/30 gap-3 text-lg">
+                            <i data-feather="heart" class="w-6 h-6"></i>
+                            Стать волонтёром
+                        </a>
+                        
+                        <!-- Кнопка 2 - Зарегистрировать НКО -->
+                        <a href="register-nko.html" class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 hover:from-cyan-600 hover:to-blue-600 border-2 border-transparent hover:border-white/30 gap-3 text-lg">
+                            <i data-feather="users" class="w-6 h-6"></i>
+                            Зарегистрировать НКО
+                        </a>
+                        
+                        <!-- Кнопка 3 - Панель НКО -->
+                        <a href="nko-dashboard.html" class="inline-flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 hover:bg-white/20 border-2 border-white/20 hover:border-white/40 gap-3 text-lg">
+                            <i data-feather="settings" class="w-6 h-6"></i>
+                            Панель НКО
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Hero Section -->
+        <section class="hero-section rounded-3xl p-12 md:p-20 text-white mb-16 fade-in-up">
+            <div class="max-w-5xl mx-auto text-center relative z-10">
+                <h1 class="text-6xl md:text-8xl font-black mb-8 leading-tight">
+                    <span class="bg-gradient-to-r from-white via-blue-200 to-cyan-200 bg-clip-text text-transparent">
+                        Добрые дела
+                    </span>
+                    <br>
+                    <span class="bg-gradient-to-r from-orange-400 via-pink-500 to-purple-600 bg-clip-text text-transparent">
+                        Росатома
+                    </span>
+                </h1>
+                <p class="text-2xl md:text-3xl mb-12 opacity-90 max-w-4xl mx-auto leading-relaxed">
+                    Все инициативы вашего города в одном месте.<br>Откройте для себя мир возможностей для добрых дел.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#map-section" class="btn btn-accent btn-wave btn-icon text-lg">
+                        <i data-feather="calendar" class="w-6 h-6"></i>
+                        Смотреть мероприятия
+                    </a>
+                    <a href="news.html" class="btn btn-glass btn-wave btn-icon text-lg">
+                        <i data-feather="file-text" class="w-6 h-6"></i>
+                        Читать новости
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="mb-20 fade-in-up">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-black mb-8 gradient-text leading-tight">
+                    Единый портал<br>для добрых дел
+                </h2>
+                <p class="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed font-medium">
+                    Объединяем жителей, волонтёров и НКО для реализации социальных, экологических,<br>культурных, образовательных и спортивных инициатив
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 stagger-animate">
+                <div class="card p-10 text-center group">
+                    <div class="w-28 h-28 mx-auto mb-8 rounded-3xl bg-gradient-to-r from-purple-500 to-pink-600 flex items-center justify-center text-white text-3xl shadow-2xl group-hover:scale-110 transition-transform duration-300">
+                        <i data-feather="users"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6 text-gray-800">НКО и проекты</h3>
+                    <p class="text-gray-600 leading-relaxed text-lg">Узнайте, какие организации и волонтёрские проекты работают в вашем городе</p>
+                </div>
+                
+                <div class="card p-10 text-center group">
+                    <div class="w-28 h-28 mx-auto mb-8 rounded-3xl bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center text-white text-3xl shadow-2xl group-hover:scale-110 transition-transform duration-300">
+                        <i data-feather="calendar"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6 text-gray-800">Мероприятия</h3>
+                    <p class="text-gray-600 leading-relaxed text-lg">Отмечайте интересные события, чтобы ничего не пропустить</p>
+                </div>
+                
+                <div class="card p-10 text-center group">
+                    <div class="w-28 h-28 mx-auto mb-8 rounded-3xl bg-gradient-to-r from-green-400 to-blue-500 flex items-center justify-center text-white text-3xl shadow-2xl group-hover:scale-110 transition-transform duration-300">
+                        <i data-feather="book-open"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6 text-gray-800">База знаний</h3>
+                    <p class="text-gray-600 leading-relaxed text-lg">Просматривайте обучающие материалы и полезные ресурсы</p>
+                </div>
+            </div>
+
+            <!-- Дополнительные карточки -->
+            <div class="grid md:grid-cols-3 gap-8 mt-8 stagger-animate">
+                <div class="card p-10 text-center group">
+                    <div class="w-28 h-28 mx-auto mb-8 rounded-3xl bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center text-white text-3xl shadow-2xl group-hover:scale-110 transition-transform duration-300">
+                        <i data-feather="map"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6 text-gray-800">Карта городов</h3>
+                    <p class="text-gray-600 leading-relaxed text-lg">Найдите инициативы и мероприятия в вашем регионе на интерактивной карте</p>
+                </div>
+                
+                <div class="card p-10 text-center group">
+                    <div class="w-28 h-28 mx-auto mb-8 rounded-3xl bg-gradient-to-r from-yellow-500 to-orange-500 flex items-center justify-center text-white text-3xl shadow-2xl group-hover:scale-110 transition-transform duration-300">
+                        <i data-feather="file-text"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6 text-gray-800">Новости</h3>
+                    <p class="text-gray-600 leading-relaxed text-lg">Следите за последними событиями и мероприятиями в вашем городе</p>
+                </div>
+                
+                <div class="card p-10 text-center group">
+                    <div class="w-28 h-28 mx-auto mb-8 rounded-3xl bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white text-3xl shadow-2xl group-hover:scale-110 transition-transform duration-300">
+                        <i data-feather="award"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6 text-gray-800">Достижения</h3>
+                    <p class="text-gray-600 leading-relaxed text-lg">Отслеживайте свой прогресс и получайте награды за активность</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Быстрый доступ -->
+        <section class="mb-20 fade-in-up">
+            <div class="text-center mb-12">
+                <h2 class="text-5xl md:text-6xl font-black mb-8 gradient-text leading-tight">
+                    Быстрый<br>доступ
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto font-medium">
+                    Все важные разделы платформы в одном месте
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <a href="calendar.html" class="card p-8 text-center group hover:scale-105 transition-all duration-300">
+                    <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg group-hover:scale-110 transition-transform">
+                        <i data-feather="calendar"></i>
+                    </div>
+                    <span class="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">Календарь</span>
+                </a>
+                
+                <a href="cities.html" class="card p-8 text-center group hover:scale-105 transition-all duration-300">
+                    <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg group-hover:scale-110 transition-transform">
+                        <i data-feather="map-pin"></i>
+                    </div>
+                    <span class="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">Города</span>
+                </a>
+                
+                <a href="nko.html" class="card p-8 text-center group hover:scale-105 transition-all duration-300">
+                    <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg group-hover:scale-110 transition-transform">
+                        <i data-feather="users"></i>
+                    </div>
+                    <span class="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">НКО</span>
+                </a>
+                
+                <a href="news.html" class="card p-8 text-center group hover:scale-105 transition-all duration-300">
+                    <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg group-hover:scale-110 transition-transform">
+                        <i data-feather="file-text"></i>
+                    </div>
+                    <span class="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">Новости</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Карта с фильтрами -->
+        <section id="map-section" class="mb-20 fade-in-up">
+            <div class="text-center mb-12">
+                <h2 class="text-5xl md:text-6xl font-black mb-8 gradient-text leading-tight">
+                    Карта<br>добрых дел
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto font-medium">
+                    Найдите волонтерские инициативы и мероприятия в вашем регионе
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-4 gap-8">
+                <!-- Панель фильтров -->
+                <div class="lg:col-span-1 card p-8 h-fit">
+                    <h3 class="text-2xl font-black mb-8 text-gray-800 border-b pb-6 flex items-center">
+                        <i data-feather="filter" class="w-6 h-6 mr-4 text-blue-600"></i>
+                        Фильтры
+                    </h3>
+                    
+                    <!-- Фильтр по датам -->
+                    <div class="filter-group">
+                        <h4 class="font-bold text-gray-700 mb-6 flex items-center text-lg">
+                            <i data-feather="calendar" class="w-5 h-5 mr-3 text-purple-600"></i>
+                            Даты мероприятий
+                        </h4>
+                        <div class="space-y-4">
+                            <label class="custom-checkbox flex items-center cursor-pointer">
+                                <input type="checkbox" class="date-filter" value="2024-06-15">
+                                <span class="checkmark"></span>
+                                <span class="text-gray-700 font-medium">15 июня 2024</span>
+                            </label>
+                            <label class="custom-checkbox flex items-center cursor-pointer">
+                                <input type="checkbox" class="date-filter" value="2024-06-20">
+                                <span class="checkmark"></span>
+                                <span class="text-gray-700 font-medium">20 июня 2024</span>
+                            </label>
+                            <label class="custom-checkbox flex items-center cursor-pointer">
+                                <input type="checkbox" class="date-filter" value="2024-06-25">
+                                <span class="checkmark"></span>
+                                <span class="text-gray-700 font-medium">25 июня 2024</span>
+                            </label>
+                            <label class="custom-checkbox flex items-center cursor-pointer">
+                                <input type="checkbox" class="date-filter" value="2024-07-01">
+                                <span class="checkmark"></span>
+                                <span class="text-gray-700 font-medium">1 июля 2024</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Фильтр по регионам -->
+                    <div class="filter-group">
+                        <h4 class="font-bold text-gray-700 mb-6 flex items-center text-lg">
+                            <i data-feather="map" class="w-5 h-5 mr-3 text-blue-600"></i>
+                            Регионы
+                        </h4>
+                        <div class="space-y-4 max-h-48 overflow-y-auto">
+                            <label class="custom-checkbox flex items-center cursor-pointer">
+                                <input type="checkbox" class="region-filter" value="Московская область">
+                                <span class="checkmark"></span>
+                                <span class="text-gray-700 font-medium">Московская область</span>
+                            </label>
+                            <label class="custom-checkbox flex items-center cursor-pointer">
+                                <input type="checkbox" class="region-filter" value="Ленинградская область">
+                                <span class="checkmark"></span>
+                                <span class="text-gray-700 font-medium">Ленинградская область</span>
+                            </label>
+                            <label class="custom-checkbox flex items-center cursor-pointer">
+                                <input type="checkbox" class="region-filter" value="Свердловская область">
+                                <span class="checkmark"></span>
+                                <span class="text-gray-700 font-medium">Свердловская область</span>
+                            </label>
+                            <label class="custom-checkbox flex items-center cursor-pointer">
+                                <input type="checkbox" class="region-filter" value="Челябинская область">
+                                <span class="checkmark"></span>
+                                <span class="text-gray-700 font-medium">Челябинская область</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Фильтр по городам -->
+                    <div class="filter-group">
+                        <h4 class="font-bold text-gray-700 mb-6 flex items-center text-lg">
+                            <i data-feather="home" class="w-5 h-5 mr-3 text-green-600"></i>
+                            Города
+                        </h4>
+                        <div class="space-y-4 max-h-48 overflow-y-auto">
+                            <label class="custom-checkbox flex items-center cursor-pointer">
+                                <input type="checkbox" class="city-filter" value="Дубна">
+                                <span class="checkmark"></span>
+                                <span class="text-gray-700 font-medium">Дубна</span>
+                            </label>
+                            <label class="custom-checkbox flex items-center cursor-pointer">
+                                <input type="checkbox" class="city-filter" value="Сосновый Бор">
+                                <span class="checkmark"></span>
+                                <span class="text-gray-700 font-medium">Сосновый Бор</span>
+                            </label>
+                            <label class="custom-checkbox flex items-center cursor-pointer">
+                                <input type="checkbox" class="city-filter" value="Новоуральск">
+                                <span class="checkmark"></span>
+                                <span class="text-gray-700 font-medium">Новоуральск</span>
+                            </label>
+                            <label class="custom-checkbox flex items-center cursor-pointer">
+                                <input type="checkbox" class="city-filter" value="Озёрск">
+                                <span class="checkmark"></span>
+                                <span class="text-gray-700 font-medium">Озёрск</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Кнопки -->
+                    <div class="space-y-4 mt-8">
+                        <button id="applyFilters" class="btn btn-primary btn-wave w-full text-lg">
+                            <i data-feather="check" class="w-5 h-5"></i>
+                            Применить фильтры
+                        </button>
+                        <button id="resetFilters" class="btn btn-border w-full text-lg">
+                            Сбросить фильтры
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Карта и результаты -->
+                <div class="lg:col-span-3">
+                    <!-- Контейнер для карты -->
+                    <div class="map-container mb-8">
+                        <div id="map" style="height: 450px; width: 100%;"></div>
+                        <div class="p-6 bg-gray-50 border-t">
+                            <p class="text-base text-gray-600" id="mapInfo">
+                                <span id="selectedCount" class="font-bold text-blue-600 text-lg">4</span> инициатив найдено по выбранным фильтрам
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Результаты фильтрации - красивые карточки мероприятий -->
+                    <div class="grid md:grid-cols-2 gap-6" id="filterResultsContainer">
+                        <!-- Карточки мероприятий будут загружаться динамически -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Статистика сообщества -->
+        <section class="mb-20 fade-in-up">
+            <div class="text-center mb-12">
+                <h2 class="text-5xl md:text-6xl font-black mb-8 gradient-text leading-tight">
+                    Наше<br>сообщество
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto font-medium">
+                    Уже тысячи людей и организаций присоединились к нашему движению
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8 text-center">
+                <div class="card p-8">
+                    <div class="text-4xl font-bold text-blue-600 mb-2">150+</div>
+                    <div class="text-gray-600">НКО и организаций</div>
+                </div>
+                <div class="card p-8">
+                    <div class="text-4xl font-bold text-green-600 mb-2">5,000+</div>
+                    <div class="text-gray-600">Волонтёров</div>
+                </div>
+                <div class="card p-8">
+                    <div class="text-4xl font-bold text-purple-600 mb-2">300+</div>
+                    <div class="text-gray-600">Мероприятий</div>
+                </div>
+                <div class="card p-8">
+                    <div class="text-4xl font-bold text-orange-600 mb-2">40</div>
+                    <div class="text-gray-600">Городов</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Последние новости -->
+        <section class="mb-20 fade-in-up">
+            <div class="text-center mb-12">
+                <h2 class="text-5xl md:text-6xl font-black mb-8 gradient-text leading-tight">
+                    Последние<br>новости
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto font-medium">
+                    Следите за самыми свежими событиями и объявлениями
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="latestNews">
+                <!-- Новости загружаются динамически -->
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="news.html" class="btn btn-primary btn-wave btn-icon text-lg">
+                    <i data-feather="file-text" class="w-6 h-6"></i>
+                    Все новости
+                </a>
+            </div>
+        </section>
+
+    </main>
+    
+    <custom-footer></custom-footer>
+    
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="script.js"></script>
+    <script>
+        feather.replace();
+        
+        // Обновляем интерфейс при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof checkAuthAndUpdateUI === 'function') {
+                checkAuthAndUpdateUI();
+            }
+            loadLatestNews();
+        });
+
+        // Загрузка последних новостей
+        function loadLatestNews() {
+            const newsContainer = document.getElementById('latestNews');
+            if (!newsContainer) return;
+
+            // Временная заглушка - в реальном приложении здесь будет загрузка из newsSystem
+            newsContainer.innerHTML = `
+                <div class="card p-6 group hover:scale-105 transition-all duration-300">
+                    <div class="h-48 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl mb-4 flex items-center justify-center text-white text-2xl">
+                        <i data-feather="award" class="w-12 h-12"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Запуск платформы</h3>
+                    <p class="text-gray-600 mb-4">Мы рады представить новую платформу для волонтеров и НКО городов Росатома</p>
+                    <div class="flex items-center justify-between text-sm text-gray-500">
+                        <span>15 января 2024</span>
+                        <a href="news.html" class="text-blue-600 hover:text-blue-700">Читать →</a>
+                    </div>
+                </div>
+                
+                <div class="card p-6 group hover:scale-105 transition-all duration-300">
+                    <div class="h-48 bg-gradient-to-r from-green-500 to-blue-500 rounded-xl mb-4 flex items-center justify-center text-white text-2xl">
+                        <i data-feather="users" class="w-12 h-12"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Новые волонтеры</h3>
+                    <p class="text-gray-600 mb-4">К нашему движению присоединились более 100 новых волонтеров из Дубны</p>
+                    <div class="flex items-center justify-between text-sm text-gray-500">
+                        <span>10 января 2024</span>
+                        <a href="news.html" class="text-blue-600 hover:text-blue-700">Читать →</a>
+                    </div>
+                </div>
+                
+                <div class="card p-6 group hover:scale-105 transition-all duration-300">
+                    <div class="h-48 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl mb-4 flex items-center justify-center text-white text-2xl">
+                        <i data-feather="calendar" class="w-12 h-12"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Предстоящие события</h3>
+                    <p class="text-gray-600 mb-4">В этом месяце запланировано более 50 мероприятий в разных городах</p>
+                    <div class="flex items-center justify-between text-sm text-gray-500">
+                        <span>5 января 2024</span>
+                        <a href="news.html" class="text-blue-600 hover:text-blue-700">Читать →</a>
+                    </div>
+                </div>
+            `;
+            feather.replace();
+        }
+    </script>
+    
+    <!-- Система событий -->
+    <script src="components/events-system.js"></script>
+    
+    <!-- Яндекс Карты API -->
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=ваш_api_ключ&lang=ru_RU" type="text/javascript"></script>
+    <script src="components/map-filters.js"></script>
+</body>
+</html>

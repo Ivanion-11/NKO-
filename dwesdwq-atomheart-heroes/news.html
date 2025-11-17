@@ -1,0 +1,284 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новости | AtomHeart Heroes</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="bg-gray-900">
+    <!-- Красивый фон -->
+    <div class="background-wrapper"></div>
+    <div class="particles-container">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <custom-navbar></custom-navbar>
+    
+    <main class="main-content container mx-auto px-4 py-8">
+        <div class="max-w-7xl mx-auto">
+            <!-- Заголовок -->
+            <div class="text-center mb-12 fade-in-up">
+                <h1 class="text-5xl md:text-6xl font-black mb-6 gradient-text leading-tight">
+                    Новости
+                </h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto font-medium">
+                    Следите за последними событиями и мероприятиями в вашем городе
+                </p>
+            </div>
+
+            <!-- Кнопка назад -->
+            <div class="mb-8 fade-in-up">
+                <a href="index.html" class="btn-back btn-wave inline-flex items-center">
+                    <i data-feather="arrow-left" class="w-5 h-5"></i>
+                    Назад на главную
+                </a>
+            </div>
+
+            <!-- Панель фильтров -->
+            <div class="card p-6 mb-8 fade-in-up">
+                <div class="flex flex-col lg:flex-row gap-6 items-start lg:items-center">
+                    <!-- Поиск -->
+                    <div class="flex-1 w-full">
+                        <div class="relative">
+                            <input type="text" id="newsSearch" placeholder="Поиск новостей..." 
+                                   class="w-full px-4 py-3 pl-12 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300">
+                            <i data-feather="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"></i>
+                        </div>
+                    </div>
+
+                    <!-- Фильтр по городу -->
+                    <div class="flex-1 w-full">
+                        <select id="cityFilter" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300">
+                            <option value="all">Все города</option>
+                            <option value="Дубна">Дубна</option>
+                            <option value="Сосновый Бор">Сосновый Бор</option>
+                            <option value="Новоуральск">Новоуральск</option>
+                            <option value="Озёрск">Озёрск</option>
+                            <option value="Обнинск">Обнинск</option>
+                            <option value="Саров">Саров</option>
+                        </select>
+                    </div>
+
+                    <!-- Фильтр по категории -->
+                    <div class="flex-1 w-full">
+                        <select id="categoryFilter" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300">
+                            <option value="all">Все категории</option>
+                            <option value="platform">Новости платформы</option>
+                            <option value="ecology">Экология</option>
+                            <option value="sport">Спорт</option>
+                            <option value="education">Образование</option>
+                            <option value="social">Социальная помощь</option>
+                            <option value="culture">Культура</option>
+                            <option value="volunteer">Волонтерство</option>
+                        </select>
+                    </div>
+
+                    <!-- Кнопка добавления новости (только для админов) -->
+                    <div class="flex-1 w-full" id="adminNewsControls" style="display: none;">
+                        <button onclick="openAddNewsModal()" class="btn btn-primary btn-wave btn-icon w-full">
+                            <i data-feather="plus" class="w-5 h-5"></i>
+                            Добавить новость
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Основной контент -->
+            <div class="grid lg:grid-cols-4 gap-8">
+                <!-- Боковая панель -->
+                <div class="lg:col-span-1">
+                    <!-- Популярные новости -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                            <i data-feather="trending-up" class="w-5 h-5 mr-2 text-orange-500"></i>
+                            Популярное
+                        </h3>
+                        <div id="popularNews" class="space-y-4">
+                            <!-- Популярные новости загружаются динамически -->
+                        </div>
+                    </div>
+
+                    <!-- Категории -->
+                    <div class="card p-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                            <i data-feather="folder" class="w-5 h-5 mr-2 text-blue-500"></i>
+                            Категории
+                        </h3>
+                        <div class="space-y-2">
+                            <button class="category-btn w-full text-left p-3 rounded-lg hover:bg-blue-50 transition-colors flex items-center justify-between" data-category="all">
+                                <span class="flex items-center">
+                                    <i data-feather="grid" class="w-4 h-4 mr-3 text-gray-500"></i>
+                                    Все новости
+                                </span>
+                                <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-xs" id="count-all">0</span>
+                            </button>
+                            <button class="category-btn w-full text-left p-3 rounded-lg hover:bg-blue-50 transition-colors flex items-center justify-between" data-category="platform">
+                                <span class="flex items-center">
+                                    <i data-feather="award" class="w-4 h-4 mr-3 text-purple-500"></i>
+                                    Новости платформы
+                                </span>
+                                <span class="bg-purple-100 text-purple-600 px-2 py-1 rounded-full text-xs" id="count-platform">0</span>
+                            </button>
+                            <button class="category-btn w-full text-left p-3 rounded-lg hover:bg-blue-50 transition-colors flex items-center justify-between" data-category="ecology">
+                                <span class="flex items-center">
+                                    <i data-feather="leaf" class="w-4 h-4 mr-3 text-green-500"></i>
+                                    Экология
+                                </span>
+                                <span class="bg-green-100 text-green-600 px-2 py-1 rounded-full text-xs" id="count-ecology">0</span>
+                            </button>
+                            <button class="category-btn w-full text-left p-3 rounded-lg hover:bg-blue-50 transition-colors flex items-center justify-between" data-category="volunteer">
+                                <span class="flex items-center">
+                                    <i data-feather="users" class="w-4 h-4 mr-3 text-blue-500"></i>
+                                    Волонтерство
+                                </span>
+                                <span class="bg-blue-100 text-blue-600 px-2 py-1 rounded-full text-xs" id="count-volunteer">0</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Лента новостей -->
+                <div class="lg:col-span-3">
+                    <div id="newsContainer">
+                        <!-- Новости загружаются динамически -->
+                    </div>
+
+                    <!-- Пагинация -->
+                    <div id="pagination" class="flex justify-center mt-8">
+                        <!-- Пагинация загружается динамически -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Модальное окно добавления/редактирования новости -->
+    <div id="newsModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl p-8 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-800" id="newsModalTitle">Добавить новость</h3>
+                <button onclick="closeNewsModal()" class="text-gray-400 hover:text-gray-600">
+                    <i data-feather="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <form id="newsForm" class="space-y-6">
+                <input type="hidden" id="newsId">
+                
+                <!-- Заголовок -->
+                <div>
+                    <label for="newsTitle" class="block text-sm font-semibold text-gray-700 mb-3">Заголовок *</label>
+                    <input type="text" id="newsTitle" name="newsTitle" required 
+                           class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                           placeholder="Введите заголовок новости">
+                </div>
+
+                <!-- Краткое описание -->
+                <div>
+                    <label for="newsExcerpt" class="block text-sm font-semibold text-gray-700 mb-3">Краткое описание *</label>
+                    <textarea id="newsExcerpt" name="newsExcerpt" rows="2" required
+                              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                              placeholder="Краткое описание новости (отображается в списке)"></textarea>
+                </div>
+
+                <!-- Содержимое -->
+                <div>
+                    <label for="newsContent" class="block text-sm font-semibold text-gray-700 mb-3">Содержимое *</label>
+                    <textarea id="newsContent" name="newsContent" rows="6" required
+                              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                              placeholder="Полное содержимое новости"></textarea>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Город -->
+                    <div>
+                        <label for="newsCity" class="block text-sm font-semibold text-gray-700 mb-3">Город *</label>
+                        <select id="newsCity" name="newsCity" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300">
+                            <option value="all">Все города</option>
+                            <option value="Дубна">Дубна</option>
+                            <option value="Сосновый Бор">Сосновый Бор</option>
+                            <option value="Новоуральск">Новоуральск</option>
+                            <option value="Озёрск">Озёрск</option>
+                            <option value="Обнинск">Обнинск</option>
+                            <option value="Саров">Саров</option>
+                        </select>
+                    </div>
+
+                    <!-- Категория -->
+                    <div>
+                        <label for="newsCategory" class="block text-sm font-semibold text-gray-700 mb-3">Категория *</label>
+                        <select id="newsCategory" name="newsCategory" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300">
+                            <option value="platform">Новости платформы</option>
+                            <option value="ecology">Экология</option>
+                            <option value="sport">Спорт</option>
+                            <option value="education">Образование</option>
+                            <option value="social">Социальная помощь</option>
+                            <option value="culture">Культура</option>
+                            <option value="volunteer">Волонтерство</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Изображение -->
+                <div>
+                    <label for="newsImage" class="block text-sm font-semibold text-gray-700 mb-3">URL изображения</label>
+                    <input type="url" id="newsImage" name="newsImage"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                           placeholder="https://example.com/image.jpg">
+                </div>
+
+                <!-- Теги -->
+                <div>
+                    <label for="newsTags" class="block text-sm font-semibold text-gray-700 mb-3">Теги (через запятую)</label>
+                    <input type="text" id="newsTags" name="newsTags"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                           placeholder="новости, события, волонтерство">
+                </div>
+
+                <!-- Статус -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-3">Статус</label>
+                    <div class="flex space-x-4">
+                        <label class="flex items-center">
+                            <input type="radio" name="newsStatus" value="published" checked class="text-blue-600 focus:ring-blue-500">
+                            <span class="ml-2 text-gray-700">Опубликовано</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="newsStatus" value="draft" class="text-blue-600 focus:ring-blue-500">
+                            <span class="ml-2 text-gray-700">Черновик</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Кнопки -->
+                <div class="flex gap-4 pt-4">
+                    <button type="button" onclick="closeNewsModal()" class="btn btn-border flex-1">
+                        Отмена
+                    </button>
+                    <button type="submit" class="btn btn-primary btn-wave btn-icon flex-1">
+                        <i data-feather="save" class="w-5 h-5"></i>
+                        Сохранить новость
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <custom-footer></custom-footer>
+    
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="script.js"></script>
+    <script src="components/news-system.js"></script>
+    <script src="components/news-display.js"></script>
+</body>
+</html>

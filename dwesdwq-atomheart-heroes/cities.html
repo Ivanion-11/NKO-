@@ -1,0 +1,154 @@
+
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Города присутствия | AtomHeart Heroes</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="bg-gray-900">
+    <!-- Красивый фон -->
+    <div class="background-wrapper"></div>
+    <div class="particles-container">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    <div class="light-rays">
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="ray"></div>
+    </div>
+    
+    <custom-navbar></custom-navbar>
+    
+    <main class="main-content container mx-auto px-4 py-8">
+        <div class="max-w-6xl mx-auto">
+            <!-- Заголовок -->
+            <div class="text-center mb-12 fade-in-up">
+                <h1 class="text-5xl md:text-6xl font-black mb-6 gradient-text leading-tight">
+                    Города присутствия
+                </h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto font-medium">
+                    Выберите ваш город, чтобы увидеть доступные инициативы и мероприятия
+                </p>
+            </div>
+
+            <!-- Кнопка назад -->
+            <div class="mb-8 fade-in-up">
+                <a href="index.html" class="btn-back btn-wave inline-flex items-center">
+                    <i data-feather="arrow-left" class="w-5 h-5"></i>
+                    Назад на главную
+                </a>
+            </div>
+
+            <!-- Сетка городов -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 fade-in-up">
+                <a href="nko.html?city=Дубна" class="card p-6 text-center group hover:scale-105 transition-all duration-300">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-lg group-hover:scale-110 transition-transform">
+                        Д
+                    </div>
+                    <span class="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">Дубна</span>
+                </a>
+                
+                <a href="nko.html?city=Сосновый Бор" class="card p-6 text-center group hover:scale-105 transition-all duration-300">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-lg group-hover:scale-110 transition-transform">
+                        СБ
+                    </div>
+                    <span class="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">Сосновый Бор</span>
+                </a>
+                
+                <a href="nko.html?city=Новоуральск" class="card p-6 text-center group hover:scale-105 transition-all duration-300">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-lg group-hover:scale-110 transition-transform">
+                        Н
+                    </div>
+                    <span class="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">Новоуральск</span>
+                </a>
+                
+                <a href="nko.html?city=Озёрск" class="card p-6 text-center group hover:scale-105 transition-all duration-300">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-lg group-hover:scale-110 transition-transform">
+                        О
+                    </div>
+                    <span class="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">Озёрск</span>
+                </a>
+                
+                <a href="nko.html?city=Полярные Зори" class="card p-6 text-center group hover:scale-105 transition-all duration-300">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-lg group-hover:scale-110 transition-transform">
+                        ПЗ
+                    </div>
+                    <span class="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">Полярные Зори</span>
+                </a>
+
+                <!-- Остальные города в том же стиле -->
+                <a href="nko.html?city=Саров" class="card p-6 text-center group hover:scale-105 transition-all duration-300">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-blue-500 to-green-500 rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-lg group-hover:scale-110 transition-transform">
+                        С
+                    </div>
+                    <span class="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">Саров</span>
+                </a>
+                
+                <a href="nko.html?city=Железногорск" class="card p-6 text-center group hover:scale-105 transition-all duration-300">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-gray-500 to-blue-500 rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-lg group-hover:scale-110 transition-transform">
+                        Ж
+                    </div>
+                    <span class="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">Железногорск</span>
+                </a>
+                
+                <a href="nko.html?city=Зеленогорск" class="card p-6 text-center group hover:scale-105 transition-all duration-300">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-lg group-hover:scale-110 transition-transform">
+                        З
+                    </div>
+                    <span class="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">Зеленогорск</span>
+                </a>
+                
+                <a href="nko.html?city=Обнинск" class="card p-6 text-center group hover:scale-105 transition-all duration-300">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-lg group-hover:scale-110 transition-transform">
+                        О
+                    </div>
+                    <span class="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">Обнинск</span>
+                </a>
+                
+                <a href="nko.html?city=Северск" class="card p-6 text-center group hover:scale-105 transition-all duration-300">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-lg group-hover:scale-110 transition-transform">
+                        С
+                    </div>
+                    <span class="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">Северск</span>
+                </a>
+
+                <!-- Можно добавить остальные города по аналогии -->
+            </div>
+
+            <!-- Информационный блок -->
+            <div class="card p-8 mt-12 text-center fade-in-up">
+                <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg">
+                    <i data-feather="map-pin" class="w-10 h-10"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">Не нашли свой город?</h3>
+                <p class="text-gray-600 mb-6 max-w-2xl mx-auto">
+                    Мы постоянно расширяем географию наших проектов. Если вашего города нет в списке, 
+                    вы можете стать первым волонтером в вашем регионе!
+                </p>
+                <a href="volunteer-register.html" class="btn btn-primary btn-wave btn-icon">
+                    <i data-feather="user-plus" class="w-5 h-5"></i>
+                    Стать первым волонтером
+                </a>
+            </div>
+        </div>
+    </main>
+    
+    <custom-footer></custom-footer>
+    
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="script.js"></script>
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>

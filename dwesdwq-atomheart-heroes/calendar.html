@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Календарь событий | AtomHeart Heroes</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body class="bg-gray-900">
+    <!-- Красивый фон -->
+    <div class="background-wrapper"></div>
+    <div class="particles-container">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <custom-navbar></custom-navbar>
+    
+    <main class="main-content container mx-auto px-4 py-8">
+        <div class="max-w-7xl mx-auto">
+            <!-- Заголовок -->
+            <div class="text-center mb-12 fade-in-up">
+                <h1 class="text-5xl md:text-6xl font-black mb-6 gradient-text leading-tight">
+                    Календарь событий
+                </h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto font-medium">
+                    Все мероприятия вашего города в одном календаре
+                </p>
+            </div>
+
+            <!-- Кнопка назад -->
+            <div class="mb-8 fade-in-up">
+                <a href="index.html" class="btn-back btn-wave inline-flex items-center">
+                    <i data-feather="arrow-left" class="w-5 h-5"></i>
+                    Назад на главную
+                </a>
+            </div>
+
+            <!-- Панель управления -->
+            <div class="card p-6 mb-8 fade-in-up">
+                <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+                    <!-- Выбор города -->
+                    <div class="flex-1">
+                        <label class="block text-sm font-semibold text-gray-700 mb-3">Выберите город</label>
+                        <select id="citySelect" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300">
+                            <option value="">Все города</option>
+                            <option value="Дубна">Дубна</option>
+                            <option value="Сосновый Бор">Сосновый Бор</option>
+                            <option value="Новоуральск">Новоуральск</option>
+                            <option value="Озёрск">Озёрск</option>
+                            <option value="Обнинск">Обнинск</option>
+                            <option value="Саров">Саров</option>
+                        </select>
+                    </div>
+
+                    <!-- Выбор даты -->
+                    <div class="flex-1">
+                        <label class="block text-sm font-semibold text-gray-700 mb-3">Выберите дату</label>
+                        <input type="text" id="datePicker" placeholder="Выберите дату" 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300">
+                    </div>
+
+                    <!-- Кнопка добавления события -->
+                    <div class="flex-1">
+                        <label class="block text-sm font-semibold text-gray-700 mb-3">&nbsp;</label>
+                        <button onclick="openAddEventModal()" class="btn btn-primary btn-wave btn-icon w-full">
+                            <i data-feather="plus" class="w-5 h-5"></i>
+                            Добавить событие
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Календарь и события -->
+            <div class="grid lg:grid-cols-4 gap-8">
+                <!-- Боковая панель с мини-календарем -->
+                <div class="lg:col-span-1">
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4">Мини-календарь</h3>
+                        <div id="miniCalendar" class="space-y-2">
+                            <!-- Мини-календарь будет здесь -->
+                        </div>
+                    </div>
+
+                    <!-- Быстрая навигация -->
+                    <div class="card p-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4">Быстрая навигация</h3>
+                        <div class="space-y-3">
+                            <button onclick="showTodayEvents()" class="btn btn-glass btn-sm w-full justify-start">
+                                <i data-feather="calendar" class="w-4 h-4 mr-2"></i>
+                                Сегодня
+                            </button>
+                            <button onclick="showWeekEvents()" class="btn btn-glass btn-sm w-full justify-start">
+                                <i data-feather="clock" class="w-4 h-4 mr-2"></i>
+                                Эта неделя
+                            </button>
+                            <button onclick="showMonthEvents()" class="btn btn-glass btn-sm w-full justify-start">
+                                <i data-feather="calendar" class="w-4 h-4 mr-2"></i>
+                                Этот месяц
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Статистика -->
+                    <div class="card p-6 mt-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4">Статистика</h3>
+                        <div id="calendarStats" class="space-y-3">
+                            <!-- Статистика будет здесь -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Основной календарь -->
+                <div class="lg:col-span-3">
+                    <!-- Заголовок календаря -->
+                    <div class="card p-6 mb-6">
+                        <div class="flex justify-between items-center">
+                            <h2 class="text-2xl font-bold text-gray-800" id="calendarTitle">
+                                Календарь мероприятий
+                            </h2>
+                            <div class="flex items-center space-x-4">
+                                <button onclick="previousPeriod()" class="btn btn-glass btn-sm">
+                                    <i data-feather="chevron-left" class="w-4 h-4"></i>
+                                </button>
+                                <button onclick="resetCalendar()" class="btn btn-primary btn-sm">
+                                    Сегодня
+                                </button>
+                                <button onclick="nextPeriod()" class="btn btn-glass btn-sm">
+                                    <i data-feather="chevron-right" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Виды отображения -->
+                    <div class="card p-6 mb-6">
+                        <div class="flex space-x-4">
+                            <button id="viewMonth" onclick="setView('month')" class="btn btn-primary btn-sm">
+                                <i data-feather="calendar" class="w-4 h-4 mr-2"></i>
+                                Месяц
+                            </button>
+                            <button id="viewWeek" onclick="setView('week')" class="btn btn-glass btn-sm">
+                                <i data-feather="layout" class="w-4 h-4 mr-2"></i>
+                                Неделя
+                            </button>
+                            <button id="viewDay" onclick="setView('day')" class="btn btn-glass btn-sm">
+                                <i data-feather="sun" class="w-4 h-4 mr-2"></i>
+                                День
+                            </button>
+                            <button id="viewList" onclick="setView('list')" class="btn btn-glass btn-sm">
+                                <i data-feather="list" class="w-4 h-4 mr-2"></i>
+                                Список
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Контейнер календаря -->
+                    <div id="calendarContainer">
+                        <!-- Здесь будет отображаться календарь -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Модальное окно добавления события -->
+    <div id="addEventModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-800">Добавить событие</h3>
+                <button onclick="closeAddEventModal()" class="text-gray-400 hover:text-gray-600">
+                    <i data-feather="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <form id="eventForm" class="space-y-6">
+                <!-- Название события -->
+                <div>
+                    <label for="eventTitle" class="block text-sm font-semibold text-gray-700 mb-3">Название события *</label>
+                    <input type="text" id="eventTitle" name="eventTitle" required 
+                           class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                           placeholder="Например: Экологический субботник">
+                </div>
+
+                <!-- Описание -->
+                <div>
+                    <label for="eventDescription" class="block text-sm font-semibold text-gray-700 mb-3">Описание *</label>
+                    <textarea id="eventDescription" name="eventDescription" rows="3" required
+                              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                              placeholder="Опишите ваше событие..."></textarea>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Дата начала -->
+                    <div>
+                        <label for="eventStartDate" class="block text-sm font-semibold text-gray-700 mb-3">Дата начала *</label>
+                        <input type="datetime-local" id="eventStartDate" name="eventStartDate" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300">
+                    </div>
+
+                    <!-- Дата окончания -->
+                    <div>
+                        <label for="eventEndDate" class="block text-sm font-semibold text-gray-700 mb-3">Дата окончания</label>
+                        <input type="datetime-local" id="eventEndDate" name="eventEndDate"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Город -->
+                    <div>
+                        <label for="eventCity" class="block text-sm font-semibold text-gray-700 mb-3">Город *</label>
+                        <select id="eventCity" name="eventCity" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300">
+                            <option value="">Выберите город</option>
+                            <option value="Дубна">Дубна</option>
+                            <option value="Сосновый Бор">Сосновый Бор</option>
+                            <option value="Новоуральск">Новоуральск</option>
+                            <option value="Озёрск">Озёрск</option>
+                            <option value="Обнинск">Обнинск</option>
+                            <option value="Саров">Саров</option>
+                        </select>
+                    </div>
+
+                    <!-- Категория -->
+                    <div>
+                        <label for="eventCategory" class="block text-sm font-semibold text-gray-700 mb-3">Категория *</label>
+                        <select id="eventCategory" name="eventCategory" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300">
+                            <option value="">Выберите категорию</option>
+                            <option value="Экология">Экология</option>
+                            <option value="Спорт">Спорт</option>
+                            <option value="Образование">Образование</option>
+                            <option value="Социальная помощь">Социальная помощь</option>
+                            <option value="Благоустройство">Благоустройство</option>
+                            <option value="Культура">Культура</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Адрес -->
+                <div>
+                    <label for="eventAddress" class="block text-sm font-semibold text-gray-700 mb-3">Адрес *</label>
+                    <input type="text" id="eventAddress" name="eventAddress" required 
+                           class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                           placeholder="Например: Городской парк">
+                </div>
+
+                <!-- Организатор -->
+                <div>
+                    <label for="eventOrganization" class="block text-sm font-semibold text-gray-700 mb-3">Организатор *</label>
+                    <input type="text" id="eventOrganization" name="eventOrganization" required 
+                           class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                           placeholder="Название вашей организации">
+                </div>
+
+                <!-- Контактная информация -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="eventContactEmail" class="block text-sm font-semibold text-gray-700 mb-3">Email для связи</label>
+                        <input type="email" id="eventContactEmail" name="eventContactEmail"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300">
+                    </div>
+                    <div>
+                        <label for="eventContactPhone" class="block text-sm font-semibold text-gray-700 mb-3">Телефон для связи</label>
+                        <input type="tel" id="eventContactPhone" name="eventContactPhone"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300">
+                    </div>
+                </div>
+
+                <!-- Тип события -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-3">Тип события</label>
+                    <div class="flex space-x-4">
+                        <label class="flex items-center">
+                            <input type="radio" name="eventType" value="public" checked class="text-blue-600 focus:ring-blue-500">
+                            <span class="ml-2 text-gray-700">Публичное</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="eventType" value="private" class="text-blue-600 focus:ring-blue-500">
+                            <span class="ml-2 text-gray-700">Приватное</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Кнопки -->
+                <div class="flex gap-4 pt-4">
+                    <button type="button" onclick="closeAddEventModal()" class="btn btn-border flex-1">
+                        Отмена
+                    </button>
+                    <button type="submit" class="btn btn-primary btn-wave btn-icon flex-1">
+                        <i data-feather="save" class="w-5 h-5"></i>
+                        Добавить событие
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно просмотра события -->
+    <div id="viewEventModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-800" id="viewEventTitle">Событие</h3>
+                <button onclick="closeViewEventModal()" class="text-gray-400 hover:text-gray-600">
+                    <i data-feather="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <div id="viewEventContent">
+                <!-- Содержимое события будет здесь -->
+            </div>
+        </div>
+    </div>
+    
+    <custom-footer></custom-footer>
+    
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ru.js"></script>
+    <script src="components/calendar-system.js"></script>
+</body>
+</html>

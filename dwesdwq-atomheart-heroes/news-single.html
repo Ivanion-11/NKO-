@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новость | AtomHeart Heroes</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="bg-gray-50">
+    <custom-navbar></custom-navbar>
+    
+    <main class="container mx-auto px-4 py-8">
+        <div class="max-w-3xl mx-auto">
+            <!-- Красивая кнопка назад -->
+            <div class="mb-8">
+                <button onclick="goBackToNews()" class="btn-back btn-back-accent pulse">
+                    <i data-feather="arrow-left" class="w-5 h-5"></i>
+                    Назад к новостям
+                </button>
+            </div>
+            
+            <!-- Остальное содержимое страницы новости -->
+            <div class="card p-8 mb-8">
+                <div class="h-64 bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl mb-6 flex items-center justify-center text-white text-2xl font-bold">
+                    📰 Новость
+                </div>
+                <div class="p-6">
+                    <div class="text-sm text-gray-500 mb-4 flex items-center">
+                        <i data-feather="calendar" class="w-4 h-4 mr-2"></i>
+                        15 мая 2023
+                    </div>
+                    <h1 class="text-3xl font-bold text-gray-800 mb-6">Экологическая акция в Дубне</h1>
+                    <div class="prose max-w-none text-gray-700">
+                        <!-- Содержимое новости -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        feather.replace();
+        
+        function goBackToNews() {
+            const button = document.querySelector('.btn-back');
+            button.style.transform = 'scale(0.95)';
+            button.style.opacity = '0.7';
+            
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 150);
+        }
+    </script>
+</body>
+</html>

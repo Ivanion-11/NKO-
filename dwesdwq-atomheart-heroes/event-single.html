@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Событие | AtomHeart Heroes</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Новый фон -->
+    <div class="background-wrapper"></div>
+    <div class="floating-shapes">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+    </div>
+    <div class="grid-pattern"></div>
+    
+    <custom-navbar></custom-navbar>
+    
+    <main class="main-content container mx-auto px-4 py-8">
+        <div class="max-w-3xl mx-auto">
+            <!-- Новая красивая кнопка назад -->
+            <div class="mb-8">
+                <button onclick="goBackToEvents()" class="btn-back btn-wave">
+                    <i data-feather="arrow-left" class="w-5 h-5"></i>
+                    Назад к событиям
+                </button>
+            </div>
+            
+            <!-- Контент события -->
+            <div class="card p-8 mb-8">
+                <div class="h-64 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl mb-6 flex items-center justify-center text-white text-2xl font-bold">
+                    📅 Мероприятие
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl p-4 text-center w-24 mr-6 shadow-lg">
+                            <div class="text-2xl font-bold">25</div>
+                            <div class="text-sm uppercase">мая</div>
+                        </div>
+                        <div>
+                            <h1 class="text-3xl font-bold text-gray-800 mb-2">Экологический субботник</h1>
+                            <div class="flex items-center text-gray-600">
+                                <i data-feather="map-pin" class="w-5 h-5 mr-2"></i>
+                                <span>Дубна, Городской парк</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="prose max-w-none text-gray-700 mb-8 leading-relaxed">
+                        <p class="text-lg mb-4">Приглашаем всех желающих принять участие в экологическом субботнике по уборке территории городского парка в Дубне.</p>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button onclick="registerForEvent()" class="btn btn-primary btn-wave btn-icon">
+                            <i data-feather="calendar" class="w-5 h-5"></i>
+                            Записаться на событие
+                        </button>
+                        <button onclick="shareEvent()" class="btn btn-glass btn-icon">
+                            <i data-feather="share-2" class="w-5 h-5"></i>
+                            Поделиться
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <custom-footer></custom-footer>
+    
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="script.js"></script>
+    <script>
+        feather.replace();
+        
+        function goBackToEvents() {
+            window.location.href = 'index.html#map-section';
+        }
+        
+        function registerForEvent() {
+            const button = event.target;
+            const originalHTML = button.innerHTML;
+            
+            button.innerHTML = '<i data-feather="check" class="w-5 h-5"></i>Вы записаны!';
+            button.classList.add('btn-loading');
+            
+            setTimeout(() => {
+                button.classList.remove('btn-loading');
+                button.innerHTML = originalHTML;
+                feather.replace();
+            }, 2000);
+        }
+        
+        function shareEvent() {
+            // Логика поделиться
+        }
+    </script>
+</body>
+</html>

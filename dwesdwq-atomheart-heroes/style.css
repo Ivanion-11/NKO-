@@ -1,0 +1,975 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --secondary: #8b5cf6;
+    --accent: #06b6d4;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --error: #ef4444;
+    
+    --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --gradient-ocean: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --gradient-sunset: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    --gradient-forest: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    --gradient-space: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+    
+    --glass-bg: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+    
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
+    --shadow-large: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: #1f2937;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    background: #0f172a;
+}
+
+/* 🌟 ЦЕЛЬНЫЙ ФОН БЕЗ РАЗМЫТИЯ И ПОЛОС */
+.background-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background: 
+        radial-gradient(ellipse at 20% 20%, rgba(120, 119, 198, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(255, 119, 198, 0.05) 0%, transparent 50%),
+        radial-gradient(ellipse at 40% 40%, rgba(120, 219, 255, 0.05) 0%, transparent 50%),
+        linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+}
+
+/* Анимированные частицы */
+.particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: floatParticle 20s infinite linear;
+}
+
+.particle:nth-child(1) {
+    width: 4px;
+    height: 4px;
+    top: 20%;
+    left: 10%;
+    background: rgba(102, 126, 234, 0.6);
+    animation-duration: 25s;
+}
+
+.particle:nth-child(2) {
+    width: 6px;
+    height: 6px;
+    top: 60%;
+    right: 15%;
+    background: rgba(139, 92, 246, 0.5);
+    animation-duration: 30s;
+    animation-delay: -5s;
+}
+
+.particle:nth-child(3) {
+    width: 3px;
+    height: 3px;
+    bottom: 30%;
+    left: 20%;
+    background: rgba(6, 182, 212, 0.7);
+    animation-duration: 35s;
+    animation-delay: -10s;
+}
+
+.particle:nth-child(4) {
+    width: 5px;
+    height: 5px;
+    top: 40%;
+    right: 25%;
+    background: rgba(245, 158, 11, 0.5);
+    animation-duration: 28s;
+    animation-delay: -15s;
+}
+
+@keyframes floatParticle {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+        transform: translate(100px, 150px) rotate(90deg);
+    }
+    50% {
+        transform: translate(200px, 50px) rotate(180deg);
+    }
+    75% {
+        transform: translate(50px, 200px) rotate(270deg);
+    }
+}
+
+/* Основной контент */
+.main-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* СТИЛИ КАРТОЧЕК БЕЗ РАЗМЫТИЯ */
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-large);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Стеклянные эффекты БЕЗ РАЗМЫТИЯ */
+.glass {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: var(--shadow-soft);
+}
+
+.glass-dark {
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-large);
+}
+
+/* 🌟 СУПЕР-КНОПКИ С АНИМАЦИЯМИ */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 36px;
+    border: none;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+    outline: none;
+    gap: 12px;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Основная кнопка - СТАТЬ ВОЛОНТЁРОМ */
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 
+        0 4px 15px rgba(102, 126, 234, 0.4),
+        0 0 0 1px rgba(102, 126, 234, 0.1);
+    position: relative;
+    z-index: 1;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.6s;
+    z-index: -1;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 
+        0 8px 25px rgba(102, 126, 234, 0.6),
+        0 0 20px rgba(102, 126, 234, 0.4),
+        0 0 30px rgba(102, 126, 234, 0.2);
+    animation: pulseGlow 2s infinite;
+}
+
+/* Акцентная кнопка - ЗАРЕГИСТРИРОВАТЬ НКО */
+.btn-accent {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+    position: relative;
+    z-index: 1;
+}
+
+.btn-accent::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.6s;
+    z-index: -1;
+}
+
+.btn-accent:hover::before {
+    left: 100%;
+}
+
+.btn-accent:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 
+        0 8px 25px rgba(79, 172, 254, 0.6),
+        0 0 20px rgba(79, 172, 254, 0.4),
+        0 0 30px rgba(79, 172, 254, 0.2);
+    animation: oceanGlow 2s infinite;
+}
+
+/* Стеклянная кнопка БЕЗ РАЗМЫТИЯ */
+.btn-glass {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #1f2937;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-glass::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+    transition: left 0.6s;
+}
+
+.btn-glass:hover::before {
+    left: 100%;
+}
+
+.btn-glass:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
+    border-color: rgba(99, 102, 241, 0.3);
+}
+
+/* Кнопка с градиентной обводкой */
+.btn-border {
+    background: transparent;
+    color: #6366f1;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.btn-border::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: var(--gradient-hero);
+    border-radius: 16px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.btn-border:hover::before {
+    opacity: 1;
+}
+
+.btn-border:hover {
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Кнопка "Назад" */
+.btn-back {
+    background: var(--gradient-hero);
+    color: white;
+    padding: 14px 32px;
+    border-radius: 16px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+}
+
+.btn-back::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.6s;
+}
+
+.btn-back:hover::before {
+    left: 100%;
+}
+
+.btn-back:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 
+        0 8px 25px rgba(102, 126, 234, 0.6),
+        0 0 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Анимации свечения */
+@keyframes pulseGlow {
+    0%, 100% {
+        box-shadow: 
+            0 4px 15px rgba(102, 126, 234, 0.4),
+            0 0 0 1px rgba(102, 126, 234, 0.1);
+    }
+    50% {
+        box-shadow: 
+            0 4px 20px rgba(102, 126, 234, 0.8),
+            0 0 20px rgba(102, 126, 234, 0.6),
+            0 0 30px rgba(102, 126, 234, 0.3),
+            0 0 0 1px rgba(102, 126, 234, 0.2);
+    }
+}
+
+@keyframes oceanGlow {
+    0%, 100% {
+        box-shadow: 
+            0 4px 15px rgba(79, 172, 254, 0.4);
+    }
+    50% {
+        box-shadow: 
+            0 4px 20px rgba(79, 172, 254, 0.8),
+            0 0 20px rgba(79, 172, 254, 0.6),
+            0 0 30px rgba(79, 172, 254, 0.3);
+    }
+}
+
+/* Волновой эффект для обеих кнопок */
+.btn-wave {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-wave::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.8);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+    transform-origin: 50% 50%;
+}
+
+.btn-primary:hover::after,
+.btn-accent:hover::after {
+    animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0.8;
+    }
+    20% {
+        transform: scale(1, 1);
+        opacity: 0.6;
+    }
+    100% {
+        transform: scale(20, 20);
+        opacity: 0;
+    }
+}
+
+/* Анимация иконок в кнопках */
+.btn-icon i {
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover .btn-icon i,
+.btn-accent:hover .btn-icon i {
+    transform: scale(1.2) rotate(5deg);
+}
+
+/* Пульсирующая анимация для привлечения внимания */
+@keyframes attentionPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.btn-attention {
+    animation: attentionPulse 2s infinite;
+}
+
+/* Анимации появления */
+.fade-in-up {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stagger-animate > * {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.stagger-animate > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-animate > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-animate > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-animate > *:nth-child(4) { animation-delay: 0.4s; }
+
+/* Градиентный текст */
+.gradient-text {
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Секция героя */
+.hero-section {
+    background: var(--gradient-space);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.05) 0%, transparent 50%);
+}
+
+/* Стили для фильтров */
+.filter-group {
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Кастомные чекбоксы */
+.custom-checkbox {
+    position: relative;
+    cursor: pointer;
+    padding: 8px 0;
+}
+
+.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    position: relative;
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid #cbd5e0;
+    border-radius: 8px;
+    margin-right: 12px;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-soft);
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+    background: var(--gradient-hero);
+    border-color: #667eea;
+    transform: scale(1.1);
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Маленькие кнопки */
+.btn-sm {
+    padding: 12px 24px;
+    font-size: 14px;
+    border-radius: 12px;
+}
+
+/* Контейнер */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .btn {
+        padding: 14px 28px;
+        font-size: 14px;
+    }
+    
+    .card {
+        border-radius: 20px;
+    }
+    
+    .hero-section {
+        padding: 3rem 1rem !important;
+    }
+}
+
+/* Убираем конфликты */
+.btn-back {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Стили для карты */
+.map-container {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+}
+
+#map {
+    border-radius: 0;
+}
+
+/* 🌟 АНИМАЦИИ ДЛЯ КНОПОК - ДОБАВЛЕНО */
+.btn-pulse {
+    animation: simplePulse 2s ease-in-out infinite;
+}
+
+@keyframes simplePulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+    }
+}
+
+/* Анимация для кнопки НКО */
+.btn-accent.btn-pulse {
+    animation: accentPulse 2s ease-in-out infinite;
+}
+
+@keyframes accentPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(79, 172, 254, 0.6);
+    }
+}
+
+/* Задержка для второй кнопки */
+.stagger-animate a:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+/* Эффект при наведении */
+.btn-pulse:hover {
+    animation: none;
+    transform: scale(1.1) translateY(-2px);
+}
+
+/* Анимация загрузки */
+.btn-loading {
+    position: relative;
+    color: transparent !important;
+}
+
+.btn-loading::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ИСПРАВЛЕННЫЕ СТИЛИ ДЛЯ КНОПОК */
+
+/* Базовые стили для кнопок */
+.btn-fixed {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 16px 32px !important;
+    border: none !important;
+    border-radius: 16px !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    position: relative !important;
+    overflow: hidden !important;
+    gap: 12px !important;
+    font-family: 'Inter', sans-serif !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    min-width: 200px !important;
+}
+
+/* Основная кнопка - Стать волонтёром */
+.btn-primary-fixed {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: white !important;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4) !important;
+}
+
+.btn-primary-fixed:hover {
+    transform: translateY(-3px) scale(1.05) !important;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6) !important;
+}
+
+/* Акцентная кнопка - Зарегистрировать НКО */
+.btn-accent-fixed {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+    color: white !important;
+    box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4) !important;
+}
+
+.btn-accent-fixed:hover {
+    transform: translateY(-3px) scale(1.05) !important;
+    box-shadow: 0 8px 25px rgba(79, 172, 254, 0.6) !important;
+}
+
+/* Стеклянная кнопка - Панель НКО */
+.btn-glass-fixed {
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(10px) !important;
+    color: white !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+.btn-glass-fixed:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Анимация пульсации для привлечения внимания */
+@keyframes buttonPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+    }
+}
+
+.btn-pulse-fixed {
+    animation: buttonPulse 2s ease-in-out infinite !important;
+}
+
+/* Гарантия видимости */
+.buttons-container {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: flex !important;
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+    .btn-fixed {
+        padding: 14px 24px !important;
+        font-size: 14px !important;
+        min-width: 160px !important;
+    }
+    
+    .buttons-container {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+}
+
+/* Убираем любые возможные скрытия */
+[class*="btn"] {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: inline-flex !important;
+}
+
+/* Анимация успеха */
+.btn-success {
+    animation: successBounce 0.6s ease;
+}
+
+@keyframes successBounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Стили для календаря */
+.calendar-day {
+    min-height: 100px;
+    border: 1px solid #e5e7eb;
+    padding: 8px;
+    background: white;
+}
+
+.calendar-day.other-month {
+    background: #f9fafb;
+    color: #9ca3af;
+}
+
+.calendar-day.today {
+    border-color: #3b82f6;
+    border-width: 2px;
+}
+
+.calendar-event {
+    font-size: 0.75rem;
+    padding: 2px 4px;
+    margin-bottom: 2px;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+}
+
+.calendar-event:hover {
+    opacity: 0.8;
+}
+
+/* Стили для модальных окон */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Стили для форм */
+.form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #374151;
+}
+
+/* Стили для уведомлений */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 16px 24px;
+    border-radius: 12px;
+    color: white;
+    z-index: 100;
+    animation: slideInRight 0.3s ease;
+}
+
+.notification.success {
+    background: #10b981;
+}
+
+.notification.error {
+    background: #ef4444;
+}
+
+.notification.info {
+    background: #3b82f6;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Стили для таблиц */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.table th {
+    background: #f9fafb;
+    font-weight: 600;
+    color: #374151;
+}
+
+.table tr:hover {
+    background: #f9fafb;
+}
+
+/* Стили для загрузки */
+.loading-spinner {
+    border: 2px solid #f3f4f6;
+    border-top: 2px solid #3b82f6;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+}
+
+/* Стили для пустых состояний */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #6b7280;
+}
+
+.empty-state-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 16px;
+    background: #f3f4f6;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+}

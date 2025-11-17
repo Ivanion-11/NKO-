@@ -1,0 +1,39 @@
+<!-- knowledge-base.html -->
+<section class="mb-20 fade-in-up">
+    <div class="text-center mb-12">
+        <h2 class="text-5xl md:text-6xl font-black mb-8 gradient-text leading-tight">
+            База знаний
+        </h2>
+        <p class="text-xl text-gray-300 max-w-3xl mx-auto font-medium">
+            Обучающие материалы и ресурсы для волонтеров и организаторов
+        </p>
+    </div>
+
+    <div class="grid lg:grid-cols-4 gap-8">
+        <!-- Фильтры -->
+        <div class="lg:col-span-1 card p-6 h-fit">
+            <h3 class="text-xl font-black mb-6 text-gray-800">Категории</h3>
+            <div class="space-y-3">
+                <button class="category-filter w-full text-left p-3 rounded-xl hover:bg-blue-50 transition-colors" data-category="all">
+                    Все материалы
+                </button>
+                <button class="category-filter w-full text-left p-3 rounded-xl hover:bg-blue-50 transition-colors" data-category="education">
+                    Обучение волонтеров
+                </button>
+                <button class="category-filter w-full text-left p-3 rounded-xl hover:bg-blue-50 transition-colors" data-category="organization">
+                    Организация мероприятий
+                </button>
+                <button class="category-filter w-full text-left p-3 rounded-xl hover:bg-blue-50 transition-colors" data-category="legal">
+                    Юридические аспекты
+                </button>
+            </div>
+        </div>
+
+        <!-- Материалы -->
+        <div class="lg:col-span-3">
+            <div class="grid md:grid-cols-2 gap-6" id="knowledgeMaterials">
+                <!-- Материалы загружаются динамически -->
+            </div>
+        </div>
+    </div>
+</section>

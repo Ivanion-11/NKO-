@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет | AtomHeart Heroes</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="bg-gray-900">
+    <!-- Красивый фон -->
+    <div class="background-wrapper"></div>
+    <div class="particles-container">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    <div class="light-rays">
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="ray"></div>
+    </div>
+    
+    <custom-navbar></custom-navbar>
+    
+    <main class="main-content container mx-auto px-4 py-8">
+        <div class="max-w-6xl mx-auto">
+            <!-- Заголовок -->
+            <div class="text-center mb-12 fade-in-up">
+                <h1 class="text-5xl md:text-6xl font-black mb-6 gradient-text leading-tight">
+                    Личный кабинет
+                </h1>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto font-medium">
+                    Управляйте вашими мероприятиями и организациями
+                </p>
+            </div>
+
+            <!-- Профиль пользователя -->
+            <div class="card p-8 mb-8 fade-in-up" id="userProfile">
+                <!-- Профиль будет загружен динамически -->
+            </div>
+
+            <!-- Навигация по разделам -->
+            <div class="card p-6 mb-8 fade-in-up">
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <button onclick="showSection('events')" class="btn btn-primary btn-wave btn-icon">
+                        <i data-feather="calendar" class="w-5 h-5"></i>
+                        Мои мероприятия
+                    </button>
+                    <button onclick="showSection('organizations')" class="btn btn-accent btn-wave btn-icon">
+                        <i data-feather="users" class="w-5 h-5"></i>
+                        Мои организации
+                    </button>
+                    <button onclick="showSection('stats')" class="btn btn-glass btn-wave btn-icon">
+                        <i data-feather="bar-chart" class="w-5 h-5"></i>
+                        Статистика
+                    </button>
+                    <button onclick="showSection('recommendations')" class="btn btn-glass btn-wave btn-icon">
+                        <i data-feather="star" class="w-5 h-5"></i>
+                        Рекомендации
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Контент разделов -->
+            <div id="contentSections">
+                <!-- Раздел мероприятий -->
+                <div id="eventsSection" class="section-content">
+                    <div class="card p-8 mb-8">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                            <i data-feather="calendar" class="w-6 h-6 mr-3 text-blue-600"></i>
+                            Мои мероприятия
+                        </h2>
+                        
+                        <!-- Статистика мероприятий -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8" id="eventsStats">
+                            <!-- Статистика загружается динамически -->
+                        </div>
+                        
+                        <!-- Список мероприятий -->
+                        <div id="volunteerEventsContainer">
+                            <!-- Мероприятия загружаются динамически -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Раздел организаций -->
+                <div id="organizationsSection" class="section-content hidden">
+                    <div class="card p-8 mb-8">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                            <i data-feather="users" class="w-6 h-6 mr-3 text-green-600"></i>
+                            Мои организации
+                        </h2>
+                        
+                        <!-- Подписки на НКО -->
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8" id="subscribedOrganizations">
+                            <!-- Организации загружаются динамически -->
+                        </div>
+                        
+                        <!-- Рекомендуемые организации -->
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                                <i data-feather="compass" class="w-5 h-5 mr-2 text-purple-600"></i>
+                                Рекомендуемые организации
+                            </h3>
+                            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="recommendedOrganizations">
+                                <!-- Рекомендации загружаются динамически -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Раздел статистики -->
+                <div id="statsSection" class="section-content hidden">
+                    <div class="card p-8 mb-8">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                            <i data-feather="bar-chart" class="w-6 h-6 mr-3 text-purple-600"></i>
+                            Ваша статистика
+                        </h2>
+                        
+                        <!-- Основная статистика -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-blue-600 mb-2" id="totalEventsCount">0</div>
+                                <div class="text-gray-600">Мероприятий</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-green-600 mb-2" id="organizationsCount">0</div>
+                                <div class="text-gray-600">Организаций</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-purple-600 mb-2" id="hoursCount">0</div>
+                                <div class="text-gray-600">Часов помощи</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-orange-600 mb-2" id="awardsCount">0</div>
+                                <div class="text-gray-600">Наград</div>
+                            </div>
+                        </div>
+
+                        <!-- Детальная статистика -->
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <!-- Активность по месяцам -->
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800 mb-4">Активность по месяцам</h3>
+                                <div id="monthlyActivity" class="space-y-3">
+                                    <!-- График активности -->
+                                </div>
+                            </div>
+                            
+                            <!-- Любимые категории -->
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800 mb-4">Любимые категории</h3>
+                                <div id="favoriteCategories" class="space-y-3">
+                                    <!-- Категории -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Раздел рекомендаций -->
+                <div id="recommendationsSection" class="section-content hidden">
+                    <div class="card p-8">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                            <i data-feather="star" class="w-6 h-6 mr-3 text-yellow-500"></i>
+                            Рекомендуемые события
+                        </h2>
+                        
+                        <!-- Рекомендации по интересам -->
+                        <div id="personalRecommendations" class="space-y-4">
+                            <!-- Рекомендации загружаются динамически -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <custom-footer></custom-footer>
+    
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="script.js"></script>
+    <script src="components/volunteer-events.js"></script>
+    <script>
+        feather.replace();
+
+        // Загрузка данных пользователя
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentVolunteer = JSON.parse(localStorage.getItem('currentVolunteer') || 'null');
+            
+            if (!currentVolunteer) {
+                // Если волонтер не зарегистрирован, перенаправляем на главную
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Обновляем профиль пользователя
+            updateUserProfile(currentVolunteer);
+            
+            // Загружаем данные для разделов
+            loadEventsData();
+            loadOrganizationsData();
+            loadStatsData();
+            loadRecommendationsData();
+            
+            // Показываем раздел мероприятий по умолчанию
+            showSection('events');
+        });
+
+        function updateUserProfile(userData) {
+            const userProfile = document.getElementById('userProfile');
+            
+            if (userProfile) {
+                userProfile.innerHTML = `
+                    <div class="flex flex-col md:flex-row items-start md:items-center">
+                        <div class="w-32 h-32 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white text-4xl font-bold mb-6 md:mb-0 md:mr-8 shadow-2xl">
+                            ${userData.fullName.charAt(0)}
+                        </div>
+                        <div class="flex-1">
+                            <h1 class="text-3xl font-bold text-gray-800 mb-2">Добро пожаловать, ${userData.fullName.split(' ')[0]}!</h1>
+                            <p class="text-gray-600 text-lg mb-4">Ваш город: <span class="font-semibold text-blue-600">${userData.city}</span></p>
+                            <div class="flex flex-wrap gap-3">
+                                <span class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium">🌱 Активный волонтёр</span>
+                                <span class="bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium">⭐ Участник сообщества</span>
+                                <span class="bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-medium">🏆 Доброволец</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Функция переключения разделов
+        function showSection(sectionName) {
+            // Скрываем все разделы
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Показываем выбранный раздел
+            document.getElementById(sectionName + 'Section').classList.remove('hidden');
+            
+            // Обновляем активные кнопки
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.classList.remove('btn-primary', 'btn-accent');
+                btn.classList.add('btn-glass');
+            });
+            
+            // Подсвечиваем активную кнопку
+            const activeButton = document.querySelector(`button[onclick="showSection('${sectionName}')"]`);
+            if (activeButton) {
+                activeButton.classList.remove('btn-glass');
+                if (sectionName === 'events') {
+                    activeButton.classList.add('btn-primary');
+                } else if (sectionName === 'organizations') {
+                    activeButton.classList.add('btn-accent');
+                } else {
+                    activeButton.classList.add('btn-primary');
+                }
+            }
+        }
+
+        // Загрузка данных мероприятий
+        function loadEventsData() {
+            const currentVolunteer = JSON.parse(localStorage.getItem('currentVolunteer') || 'null');
+            if (!currentVolunteer) return;
+
+            // Используем систему мероприятий волонтера
+            if (typeof volunteerEventsSystem !== 'undefined') {
+                const volunteerEvents = volunteerEventsSystem.getVolunteerEvents(currentVolunteer.email);
+                const stats = volunteerEventsSystem.getVolunteerStats(currentVolunteer.email);
+                
+                // Обновляем статистику
+                updateEventsStats(stats);
+                
+                // Отображаем мероприятия
+                displayVolunteerEvents(volunteerEvents);
+            }
+        }
+
+        function updateEventsStats(stats) {
+            const statsContainer = document.getElementById('eventsStats');
+            if (statsContainer) {
+                statsContainer.innerHTML = `
+                    <div class="text-center card p-4">
+                        <div class="text-2xl font-bold text-blue-600 mb-1">${stats.totalEvents}</div>
+                        <div class="text-gray-600 text-sm">Всего мероприятий</div>
+                    </div>
+                    <div class="text-center card p-4">
+                        <div class="text-2xl font-bold text-green-600 mb-1">${stats.upcomingEvents}</div>
+                        <div class="text-gray-600 text-sm">Предстоящих</div>
+                    </div>
+                    <div class="text-center card p-4">
+                        <div class="text-2xl font-bold text-purple-600 mb-1">${stats.completedEvents}</div>
+                        <div class="text-gray-600 text-sm">Завершенных</div>
+                    </div>
+                    <div class="text-center card p-4">
+                        <div class="text-lg font-bold text-orange-600 mb-1">${stats.favoriteCategory}</div>
+                        <div class="text-gray-600 text-sm">Любимая категория</div>
+                    </div>
+                `;
+            }
+        }
+
+        // Загрузка данных организаций
+        function loadOrganizationsData() {
+            // Подписки пользователя
+            const subscribedOrgs = JSON.parse(localStorage.getItem('subscribedOrganizations') || '[]');
+            updateSubscribedOrganizations(subscribedOrgs);
+            
+            // Рекомендуемые организации
+            loadRecommendedOrganizations();
+        }
+
+        function updateSubscribedOrganizations(organizations) {
+            const container = document.getElementById('subscribedOrganizations');
+            if (!container) return;
+
+            if (organizations.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-3 text-center py-8">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-gray-200 rounded-2xl flex items-center justify-center text-gray-400">
+                            <i data-feather="users" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Вы пока не подписаны на организации</h3>
+                        <p class="text-gray-600 mb-4">Найдите интересные НКО на главной странице</p>
+                        <a href="nko.html" class="btn btn-primary btn-sm">
+                            Найти организации
+                        </a>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = organizations.map(org => `
+                    <div class="card p-6 text-center group hover:scale-105 transition-all duration-300">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                            ${org.name.substring(0, 2)}
+                        </div>
+                        <h4 class="font-semibold text-gray-800 mb-2">${org.name}</h4>
+                        <p class="text-gray-600 text-sm mb-3">${org.city}</p>
+                        <div class="flex justify-center space-x-2">
+                            <button onclick="unsubscribeFromOrganization(${org.id})" class="btn btn-border btn-xs">
+                                Отписаться
+                            </button>
+                            <button onclick="viewOrganization(${org.id})" class="btn btn-glass btn-xs">
+                                Подробнее
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            feather.replace();
+        }
+
+        function loadRecommendedOrganizations() {
+            const container = document.getElementById('recommendedOrganizations');
+            if (!container) return;
+
+            // Пример рекомендованных организаций
+            const recommendedOrgs = [
+                { id: 1, name: "Эко-Дубна", city: "Дубна", category: "Экология" },
+                { id: 2, name: "Спорт для всех", city: "Дубна", category: "Спорт" },
+                { id: 3, name: "Помощь детям", city: "Дубна", category: "Социальная помощь" }
+            ];
+
+            container.innerHTML = recommendedOrgs.map(org => `
+                <div class="card p-6 text-center group hover:scale-105 transition-all duration-300">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                        ${org.name.substring(0, 2)}
+                    </div>
+                    <h4 class="font-semibold text-gray-800 mb-2">${org.name}</h4>
+                    <p class="text-gray-600 text-sm mb-1">${org.city}</p>
+                    <span class="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded-full text-xs mb-3">${org.category}</span>
+                    <div class="flex justify-center space-x-2">
+                        <button onclick="subscribeToOrganization(${org.id})" class="btn btn-primary btn-xs">
+                            Подписаться
+                        </button>
+                        <button onclick="viewOrganization(${org.id})" class="btn btn-glass btn-xs">
+                            Подробнее
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            feather.replace();
+        }
+
+        // Загрузка статистики
+        function loadStatsData() {
+            const currentVolunteer = JSON.parse(localStorage.getItem('currentVolunteer') || 'null');
+            if (!currentVolunteer) return;
+
+            // Пример данных статистики
+            const stats = {
+                totalEvents: 15,
+                organizations: 8,
+                hours: 120,
+                awards: 3,
+                monthlyActivity: [
+                    { month: 'Янв', events: 2 },
+                    { month: 'Фев', events: 3 },
+                    { month: 'Мар', events: 1 },
+                    { month: 'Апр', events: 4 },
+                    { month: 'Май', events: 5 }
+                ],
+                categories: [
+                    { name: 'Экология', count: 6 },
+                    { name: 'Спорт', count: 4 },
+                    { name: 'Образование', count: 3 },
+                    { name: 'Социальная помощь', count: 2 }
+                ]
+            };
+
+            // Обновляем основную статистику
+            document.getElementById('totalEventsCount').textContent = stats.totalEvents;
+            document.getElementById('organizationsCount').textContent = stats.organizations;
+            document.getElementById('hoursCount').textContent = stats.hours;
+            document.getElementById('awardsCount').textContent = stats.awards;
+
+            // Обновляем график активности
+            updateMonthlyActivity(stats.monthlyActivity);
+            
+            // Обновляем любимые категории
+            updateFavoriteCategories(stats.categories);
+        }
+
+        function updateMonthlyActivity(activity) {
+            const container = document.getElementById('monthlyActivity');
+            if (!container) return;
+
+            const maxEvents = Math.max(...activity.map(a => a.events));
+            
+            container.innerHTML = activity.map(item => `
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-600 w-8">${item.month}</span>
+                    <div class="flex-1 mx-4">
+                        <div class="bg-gray-200 rounded-full h-2">
+                            <div class="bg-blue-500 rounded-full h-2" style="width: ${(item.events / maxEvents) * 100}%"></div>
+                        </div>
+                    </div>
+                    <span class="text-sm font-semibold text-gray-800 w-8 text-right">${item.events}</span>
+                </div>
+            `).join('');
+        }
+
+        function updateFavoriteCategories(categories) {
+            const container = document.getElementById('favoriteCategories');
+            if (!container) return;
+
+            const total = categories.reduce((sum, cat) => sum + cat.count, 0);
+            
+            container.innerHTML = categories.map(cat => `
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-600">${cat.name}</span>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-16 bg-gray-200 rounded-full h-2">
+                            <div class="bg-green-500 rounded-full h-2" style="width: ${(cat.count / total) * 100}%"></div>
+                        </div>
+                        <span class="text-sm font-semibold text-gray-800 w-4">${cat.count}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Загрузка рекомендаций
+        function loadRecommendationsData() {
+            const container = document.getElementById('personalRecommendations');
+            if (!container) return;
+
+            // Пример рекомендаций
+            const recommendations = [
+                {
+                    id: 1,
+                    title: "Экологический субботник",
+                    organization: "Эко-Дубна",
+                    date: "2024-06-15",
+                    address: "Городской парк",
+                    category: "Экология",
+                    description: "Помогите сделать наш город чище! Присоединяйтесь к уборке городского парка."
+                },
+                {
+                    id: 2,
+                    title: "Благотворительный забег",
+                    organization: "Спорт для всех", 
+                    date: "2024-06-20",
+                    address: "Центральный стадион",
+                    category: "Спорт",
+                    description: "Пробегите дистанцию и помогите собрать средства для детского дома."
+                }
+            ];
+
+            container.innerHTML = recommendations.map(event => `
+                <div class="card p-6 hover:scale-105 transition-all duration-300 group">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-start justify-between mb-3">
+                                <h4 class="text-lg font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
+                                    ${event.title}
+                                </h4>
+                                <div class="flex items-center space-x-2">
+                                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium">
+                                        Новое
+                                    </span>
+                                    <span class="${getCategoryColorClass(event.category)} text-white px-2 py-1 rounded-full text-xs font-medium">
+                                        ${event.category}
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+                                <div class="flex items-center text-gray-600">
+                                    <i data-feather="map-pin" class="w-4 h-4 mr-2 flex-shrink-0"></i>
+                                    <span class="text-sm">${event.address}</span>
+                                </div>
+                                <div class="flex items-center text-gray-600">
+                                    <i data-feather="calendar" class="w-4 h-4 mr-2 flex-shrink-0"></i>
+                                    <span class="text-sm">${formatDate(event.date)}</span>
+                                </div>
+                                <div class="flex items-center text-gray-600">
+                                    <i data-feather="users" class="w-4 h-4 mr-2 flex-shrink-0"></i>
+                                    <span class="text-sm">${event.organization}</span>
+                                </div>
+                            </div>
+                            
+                            <p class="text-gray-600 text-sm mb-3 leading-relaxed">
+                                ${event.description}
+                            </p>
+                            
+                            <div class="flex items-center justify-between">
+                                <button onclick="registerForEvent(${event.id})" class="btn btn-primary btn-sm">
+                                    Записаться
+                                </button>
+                                <button onclick="viewEventDetails(${event.id})" class="btn btn-glass btn-sm">
+                                    Подробнее
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            feather.replace();
+        }
+
+        // Вспомогательные функции
+        function getCategoryColorClass(category) {
+            const colors = {
+                'Экология': 'bg-green-500',
+                'Спорт': 'bg-red-500',
+                'Образование': 'bg-blue-500',
+                'Социальная помощь': 'bg-purple-500'
+            };
+            return colors[category] || 'bg-blue-500';
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('ru-RU', { 
+                day: 'numeric', 
+                month: 'long',
+                year: 'numeric'
+            });
+        }
+
+        // Функции для работы с организациями
+        function subscribeToOrganization(orgId) {
+            const currentSubscriptions = JSON.parse(localStorage.getItem('subscribedOrganizations') || '[]');
+            
+            // Проверяем, не подписан ли уже
+            if (!currentSubscriptions.find(org => org.id === orgId)) {
+                // В реальном приложении здесь будет запрос к API
+                const newOrg = { id: orgId, name: "Организация " + orgId, city: "Дубна" };
+                currentSubscriptions.push(newOrg);
+                localStorage.setItem('subscribedOrganizations', JSON.stringify(currentSubscriptions));
+                
+                showNotification('Вы успешно подписались на организацию!', 'success');
+                loadOrganizationsData();
+            }
+        }
+
+        function unsubscribeFromOrganization(orgId) {
+            let currentSubscriptions = JSON.parse(localStorage.getItem('subscribedOrganizations') || '[]');
+            currentSubscriptions = currentSubscriptions.filter(org => org.id !== orgId);
+            localStorage.setItem('subscribedOrganizations', JSON.stringify(currentSubscriptions));
+            
+            showNotification('Вы отписались от организации', 'success');
+            loadOrganizationsData();
+        }
+
+        function viewOrganization(orgId) {
+            // В реальном приложении здесь будет переход на страницу организации
+            window.location.href = `nko-single.html?id=${orgId}`;
+        }
+
+        function registerForEvent(eventId) {
+            const currentVolunteer = JSON.parse(localStorage.getItem('currentVolunteer') || 'null');
+            if (!currentVolunteer) return;
+
+            if (typeof volunteerEventsSystem !== 'undefined') {
+                const result = volunteerEventsSystem.registerVolunteer(eventId, {
+                    email: currentVolunteer.email,
+                    name: currentVolunteer.fullName,
+                    phone: currentVolunteer.phone
+                });
+
+                if (result.success) {
+                    showNotification(result.message, 'success');
+                    loadEventsData();
+                } else {
+                    showNotification(result.message, 'error');
+                }
+            }
+        }
+
+        // Глобальные функции
+        window.showSection = showSection;
+        window.subscribeToOrganization = subscribeToOrganization;
+        window.unsubscribeFromOrganization = unsubscribeFromOrganization;
+        window.viewOrganization = viewOrganization;
+        window.registerForEvent = registerForEvent;
+        window.viewEventDetails = viewEventDetails;
+    </script>
+</body>
+</html>

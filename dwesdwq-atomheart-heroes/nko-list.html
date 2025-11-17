@@ -1,0 +1,71 @@
+<!-- nko-list.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>НКО вашего города | AtomHeart Heroes</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="bg-gray-900">
+    <div class="background-wrapper"></div>
+    <div class="particles-container">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <custom-navbar></custom-navbar>
+    
+    <main class="main-content container mx-auto px-4 py-8">
+        <div class="max-w-6xl mx-auto">
+            <!-- Заголовок -->
+            <div class="text-center mb-12 fade-in-up">
+                <h1 class="text-5xl md:text-6xl font-black mb-6 gradient-text leading-tight">
+                    НКО вашего города
+                </h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto font-medium">
+                    Найдите организации для сотрудничества и участия
+                </p>
+            </div>
+
+            <!-- Фильтры -->
+            <div class="card p-6 mb-8">
+                <div class="grid md:grid-cols-4 gap-4">
+                    <select id="cityFilter" class="px-4 py-3 border border-gray-300 rounded-xl">
+                        <option value="">Все города</option>
+                        <option value="Дубна">Дубна</option>
+                        <option value="Новоуральск">Новоуральск</option>
+                    </select>
+                    <select id="categoryFilter" class="px-4 py-3 border border-gray-300 rounded-xl">
+                        <option value="">Все категории</option>
+                        <option value="Экология">Экология</option>
+                        <option value="Образование">Образование</option>
+                    </select>
+                    <input type="text" id="searchFilter" placeholder="Поиск..." 
+                           class="px-4 py-3 border border-gray-300 rounded-xl">
+                    <button onclick="applyNkoFilters()" class="btn btn-primary">Применить</button>
+                </div>
+            </div>
+
+            <!-- Список НКО -->
+            <div id="nkoList" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- НКО будут загружаться динамически -->
+            </div>
+        </div>
+    </main>
+    
+    <custom-footer></custom-footer>
+    
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="script.js"></script>
+    <script>
+        feather.replace();
+        loadNkoList();
+    </script>
+</body>
+</html>

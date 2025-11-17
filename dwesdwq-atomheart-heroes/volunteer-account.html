@@ -1,0 +1,550 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет волонтёра | AtomHeart Heroes</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="bg-gray-900">
+    <!-- Красивый фон -->
+    <div class="background-wrapper"></div>
+    <div class="particles-container">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <custom-navbar></custom-navbar>
+    
+    <main class="main-content container mx-auto px-4 py-8">
+        <div class="max-w-6xl mx-auto">
+            <!-- Заголовок -->
+            <div class="text-center mb-12 fade-in-up">
+                <h1 class="text-5xl md:text-6xl font-black mb-6 gradient-text leading-tight">
+                    Личный кабинет волонтёра
+                </h1>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto font-medium">
+                    Управляйте вашими мероприятиями и активностью
+                </p>
+            </div>
+
+            <!-- Профиль волонтёра -->
+            <div class="card p-8 mb-8 fade-in-up">
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between">
+                    <div class="flex items-center mb-6 md:mb-0">
+                        <div class="w-20 h-20 rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white text-2xl font-bold mr-6 shadow-lg" id="volunteerAvatar">
+                            И
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-800" id="volunteerName">Иван Иванов</h2>
+                            <p class="text-gray-600" id="volunteerInfo">Волонтёр • Новоуральск, Свердловская область</p>
+                            <div class="flex flex-wrap gap-2 mt-2">
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">🌱 Активный волонтёр</span>
+                                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-medium">⭐ 15 мероприятий</span>
+                                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-xs font-medium">🏆 Лидер месяца</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="logoutVolunteer()" class="btn btn-border btn-sm">
+                        <i data-feather="log-out" class="w-4 h-4"></i>
+                        Выйти
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-4 gap-8">
+                <!-- Боковая панель -->
+                <div class="lg:col-span-1">
+                    <!-- Быстрые действия -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4">Быстрые действия</h3>
+                        <a href="#my-events" class="btn btn-primary btn-wave btn-icon w-full mb-3">
+                            <i data-feather="calendar" class="w-5 h-5"></i>
+                            Мои мероприятия
+                        </a>
+                        <a href="index.html#map-section" class="btn btn-glass btn-icon w-full mb-3">
+                            <i data-feather="search" class="w-5 h-5"></i>
+                            Найти мероприятия
+                        </a>
+                        <button onclick="editProfile()" class="btn btn-border btn-icon w-full">
+                            <i data-feather="edit" class="w-5 h-5"></i>
+                            Редактировать профиль
+                        </button>
+                    </div>
+
+                    <!-- Статистика -->
+                    <div class="card p-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4">Ваша статистика</h3>
+                        <div id="volunteerStats" class="space-y-4">
+                            <!-- Статистика будет обновляться динамически -->
+                        </div>
+                    </div>
+
+                    <!-- Достижения -->
+                    <div class="card p-6 mt-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4">Достижения</h3>
+                        <div id="achievementsList" class="space-y-3">
+                            <!-- Достижения будут здесь -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Основной контент -->
+                <div class="lg:col-span-3">
+                    <!-- Мои мероприятия -->
+                    <div id="my-events" class="mb-12">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold text-white">Мои мероприятия</h2>
+                            <a href="index.html#map-section" class="btn btn-primary btn-wave btn-icon">
+                                <i data-feather="plus" class="w-5 h-5"></i>
+                                Найти мероприятия
+                            </a>
+                        </div>
+
+                        <div id="volunteerEventsContainer" class="space-y-6">
+                            <!-- Мероприятия будут загружаться здесь -->
+                        </div>
+
+                        <!-- Сообщение если нет мероприятий -->
+                        <div id="emptyEventsState" class="card p-12 text-center hidden">
+                            <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-gray-300 to-gray-400 rounded-2xl flex items-center justify-center text-white text-2xl">
+                                <i data-feather="calendar" class="w-10 h-10"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">Вы пока не участвуете в мероприятиях</h3>
+                            <p class="text-gray-600 mb-6">Найдите интересные мероприятия на главной странице и зарегистрируйтесь</p>
+                            <a href="index.html#map-section" class="btn btn-primary btn-wave btn-icon">
+                                <i data-feather="search" class="w-5 h-5"></i>
+                                Найти мероприятия
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Рекомендуемые мероприятия -->
+                    <div class="card p-8">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                            <i data-feather="star" class="w-6 h-6 mr-3 text-yellow-500"></i>
+                            Рекомендуемые мероприятия в вашем городе
+                        </h2>
+                        <div id="recommendedEvents" class="space-y-4">
+                            <!-- Рекомендации будут загружаться здесь -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Модальное окно редактирования профиля -->
+    <div id="profileModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-800">Редактирование профиля</h3>
+                <button onclick="closeProfileModal()" class="text-gray-400 hover:text-gray-600">
+                    <i data-feather="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <form id="profileForm" class="space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="editFullName" class="block text-sm font-semibold text-gray-700 mb-3">ФИО *</label>
+                        <input type="text" id="editFullName" name="editFullName" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300">
+                    </div>
+                    
+                    <div>
+                        <label for="editEmail" class="block text-sm font-semibold text-gray-700 mb-3">Email *</label>
+                        <input type="email" id="editEmail" name="editEmail" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="editPhone" class="block text-sm font-semibold text-gray-700 mb-3">Телефон</label>
+                        <input type="tel" id="editPhone" name="editPhone"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300">
+                    </div>
+                    
+                    <div>
+                        <label for="editCity" class="block text-sm font-semibold text-gray-700 mb-3">Город *</label>
+                        <select id="editCity" name="editCity" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300">
+                            <option value="Новоуральск, Свердловская область">Новоуральск, Свердловская область</option>
+                            <option value="Дубна, Московская область">Дубна, Московская область</option>
+                            <option value="Сосновый Бор, Ленинградская область">Сосновый Бор, Ленинградская область</option>
+                            <option value="Озёрск, Челябинская область">Озёрск, Челябинская область</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="editAbout" class="block text-sm font-semibold text-gray-700 mb-3">О себе</label>
+                    <textarea id="editAbout" name="editAbout" rows="4"
+                              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                              placeholder="Расскажите о себе..."></textarea>
+                </div>
+
+                <!-- Кнопки -->
+                <div class="flex gap-4 pt-4">
+                    <button type="button" onclick="closeProfileModal()" class="btn btn-border flex-1">
+                        Отмена
+                    </button>
+                    <button type="submit" class="btn btn-primary btn-wave btn-icon flex-1">
+                        <i data-feather="save" class="w-5 h-5"></i>
+                        Сохранить изменения
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <custom-footer></custom-footer>
+    
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="script.js"></script>
+    <script src="components/volunteer-events.js"></script>
+    <script>
+        feather.replace();
+        
+        // Система аутентификации волонтёров
+        const volunteerAuthSystem = {
+            currentVolunteerKey: 'currentVolunteer',
+            volunteersKey: 'volunteersData',
+
+            // Вход волонтёра
+            loginVolunteer(email, password) {
+                const volunteers = JSON.parse(localStorage.getItem(this.volunteersKey) || '[]');
+                const volunteer = volunteers.find(v => v.email === email && v.password === password);
+                
+                if (volunteer) {
+                    // Сохраняем данные текущего волонтёра (без пароля)
+                    const { password, ...volunteerData } = volunteer;
+                    localStorage.setItem(this.currentVolunteerKey, JSON.stringify(volunteerData));
+                    return true;
+                }
+                return false;
+            },
+
+            // Регистрация волонтёра
+            registerVolunteer(volunteerData) {
+                const volunteers = JSON.parse(localStorage.getItem(this.volunteersKey) || '[]');
+                
+                // Проверяем, нет ли уже волонтёра с таким email
+                if (volunteers.find(v => v.email === volunteerData.email)) {
+                    return { success: false, message: 'Волонтёр с таким email уже зарегистрирован' };
+                }
+
+                // Добавляем волонтёра
+                volunteers.push(volunteerData);
+                localStorage.setItem(this.volunteersKey, JSON.stringify(volunteers));
+
+                // Автоматически входим
+                const { password, ...volunteerDataWithoutPassword } = volunteerData;
+                localStorage.setItem(this.currentVolunteerKey, JSON.stringify(volunteerDataWithoutPassword));
+
+                return { success: true, message: 'Регистрация успешна' };
+            },
+
+            // Получение текущего волонтёра
+            getCurrentVolunteer() {
+                return JSON.parse(localStorage.getItem(this.currentVolunteerKey) || 'null');
+            },
+
+            // Выход
+            logout() {
+                localStorage.removeItem(this.currentVolunteerKey);
+                window.location.href = 'index.html';
+            },
+
+            // Обновление профиля
+            updateProfile(updatedData) {
+                const currentVolunteer = this.getCurrentVolunteer();
+                if (!currentVolunteer) return false;
+
+                const volunteers = JSON.parse(localStorage.getItem(this.volunteersKey) || '[]');
+                const volunteerIndex = volunteers.findIndex(v => v.email === currentVolunteer.email);
+
+                if (volunteerIndex !== -1) {
+                    // Обновляем данные
+                    volunteers[volunteerIndex] = { ...volunteers[volunteerIndex], ...updatedData };
+                    localStorage.setItem(this.volunteersKey, JSON.stringify(volunteers));
+
+                    // Обновляем текущего волонтёра
+                    const { password, ...volunteerData } = volunteers[volunteerIndex];
+                    localStorage.setItem(this.currentVolunteerKey, JSON.stringify(volunteerData));
+
+                    return true;
+                }
+                return false;
+            }
+        };
+
+        // Загрузка данных при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            loadVolunteerData();
+            loadVolunteerEvents();
+            updateVolunteerStats();
+            loadRecommendedEvents();
+            loadAchievements();
+        });
+
+        // Загрузка данных волонтёра
+        function loadVolunteerData() {
+            const volunteer = volunteerAuthSystem.getCurrentVolunteer();
+            
+            if (!volunteer) {
+                // Если волонтёр не авторизован, перенаправляем на страницу входа
+                window.location.href = 'volunteer-login.html';
+                return;
+            }
+
+            // Заполняем данные на странице
+            document.getElementById('volunteerName').textContent = volunteer.fullName;
+            document.getElementById('volunteerInfo').textContent = `Волонтёр • ${volunteer.city}`;
+            document.getElementById('volunteerAvatar').textContent = volunteer.fullName.charAt(0);
+
+            // Заполняем форму редактирования
+            document.getElementById('editFullName').value = volunteer.fullName;
+            document.getElementById('editEmail').value = volunteer.email;
+            document.getElementById('editPhone').value = volunteer.phone || '';
+            document.getElementById('editCity').value = volunteer.city;
+            document.getElementById('editAbout').value = volunteer.about || '';
+        }
+
+        // Загрузка мероприятий волонтёра
+        function loadVolunteerEvents() {
+            const volunteer = volunteerAuthSystem.getCurrentVolunteer();
+            if (!volunteer) return;
+
+            const volunteerEvents = volunteerEventsSystem.getVolunteerEvents(volunteer.email);
+            const container = document.getElementById('volunteerEventsContainer');
+            const emptyState = document.getElementById('emptyEventsState');
+
+            if (volunteerEvents.length === 0) {
+                container.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            
+            container.innerHTML = volunteerEvents.map(event => `
+                <div class="card group hover:scale-105 transition-all duration-300">
+                    <div class="relative overflow-hidden rounded-t-2xl">
+                        <img src="${event.image}" alt="${event.title}" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110">
+                        <div class="absolute top-4 left-4 ${getCategoryColorClass(event.category)} text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            ${event.category}
+                        </div>
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-gray-800 px-3 py-1 rounded-full text-sm font-semibold">
+                            ${formatDate(event.date)}
+                        </div>
+                        <div class="absolute bottom-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            ${event.participants} участников
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">
+                            ${event.title}
+                        </h3>
+                        <div class="flex items-center text-gray-600 mb-3">
+                            <i data-feather="map-pin" class="w-4 h-4 mr-2"></i>
+                            <span class="text-sm">${event.address}, ${event.city}</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4 leading-relaxed">
+                            ${event.description}
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-blue-600 font-semibold">${event.organization}</span>
+                            <button onclick="unregisterFromEvent(${event.id})" class="btn btn-border btn-sm">
+                                Отменить участие
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            feather.replace();
+        }
+
+        // Обновление статистики
+        function updateVolunteerStats() {
+            const volunteer = volunteerAuthSystem.getCurrentVolunteer();
+            if (!volunteer) return;
+
+            const stats = volunteerEventsSystem.getVolunteerStats(volunteer.email);
+            
+            document.getElementById('volunteerStats').innerHTML = `
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Всего мероприятий</span>
+                    <span class="font-bold text-blue-600">${stats.totalEvents}</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Предстоящих</span>
+                    <span class="font-bold text-green-600">${stats.upcomingEvents}</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Завершенных</span>
+                    <span class="font-bold text-purple-600">${stats.completedEvents}</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Любимая категория</span>
+                    <span class="font-bold text-orange-600">${stats.favoriteCategory}</span>
+                </div>
+            `;
+        }
+
+        // Загрузка рекомендованных мероприятий
+        function loadRecommendedEvents() {
+            const volunteer = volunteerAuthSystem.getCurrentVolunteer();
+            if (!volunteer) return;
+
+            const publicEvents = volunteerEventsSystem.getPublicEvents({ city: volunteer.city });
+            const volunteerEvents = volunteerEventsSystem.getVolunteerEvents(volunteer.email);
+            
+            // Фильтруем мероприятия, на которые волонтёр ещё не зарегистрирован
+            const recommendedEvents = publicEvents.filter(event => 
+                !volunteerEvents.some(ve => ve.id === event.id) && 
+                new Date(event.date) >= new Date()
+            ).slice(0, 3);
+
+            const container = document.getElementById('recommendedEvents');
+            
+            if (recommendedEvents.length === 0) {
+                container.innerHTML = '<p class="text-gray-600 text-center">Пока нет рекомендованных мероприятий</p>';
+                return;
+            }
+
+            container.innerHTML = recommendedEvents.map(event => `
+                <a href="event-single.html?id=${event.id}" class="block card p-6 hover:scale-105 transition-transform duration-300 group">
+                    <div class="flex items-center">
+                        <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl p-4 text-center w-20 mr-6 shadow-lg">
+                            <div class="text-lg font-bold">${new Date(event.date).getDate()}</div>
+                            <div class="text-xs uppercase">${new Date(event.date).toLocaleString('ru', { month: 'short' })}</div>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-lg text-gray-800 mb-1 group-hover:text-blue-600 transition-colors">${event.title}</h3>
+                            <div class="text-gray-600 flex items-center">
+                                <i data-feather="map-pin" class="w-4 h-4 mr-2"></i>
+                                ${event.address}
+                            </div>
+                        </div>
+                        <div class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                            Новое
+                        </div>
+                    </div>
+                </a>
+            `).join('');
+
+            feather.replace();
+        }
+
+        // Загрузка достижений
+        function loadAchievements() {
+            const volunteer = volunteerAuthSystem.getCurrentVolunteer();
+            if (!volunteer) return;
+
+            const achievements = [
+                { name: 'Первый шаг', description: 'Зарегистрировался на первое мероприятие', earned: true },
+                { name: 'Активный волонтёр', description: 'Участвовал в 5 мероприятиях', earned: true },
+                { name: 'Лидер сообщества', description: 'Участвовал в 15 мероприятиях', earned: false },
+                { name: 'Эко-герой', description: 'Участвовал в 3 экологических акциях', earned: true }
+            ];
+
+            document.getElementById('achievementsList').innerHTML = achievements.map(achievement => `
+                <div class="flex items-center p-3 rounded-xl ${achievement.earned ? 'bg-green-50 border border-green-200' : 'bg-gray-100 border border-gray-200'}">
+                    <div class="w-8 h-8 rounded-full ${achievement.earned ? 'bg-green-500' : 'bg-gray-400'} flex items-center justify-center text-white mr-3">
+                        <i data-feather="${achievement.earned ? 'award' : 'lock'}" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                        <div class="font-medium text-sm ${achievement.earned ? 'text-green-800' : 'text-gray-600'}">${achievement.name}</div>
+                        <div class="text-xs ${achievement.earned ? 'text-green-600' : 'text-gray-500'}">${achievement.description}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            feather.replace();
+        }
+
+        // Функции модального окна
+        function editProfile() {
+            document.getElementById('profileModal').classList.remove('hidden');
+        }
+
+        function closeProfileModal() {
+            document.getElementById('profileModal').classList.add('hidden');
+        }
+
+        // Выход из системы
+        function logoutVolunteer() {
+            if (confirm('Вы уверены, что хотите выйти?')) {
+                volunteerAuthSystem.logout();
+            }
+        }
+
+        // Отмена регистрации на мероприятие
+        function unregisterFromEvent(eventId) {
+            const volunteer = volunteerAuthSystem.getCurrentVolunteer();
+            if (!volunteer) return;
+
+            if (confirm('Вы уверены, что хотите отменить участие в этом мероприятии?')) {
+                const result = volunteerEventsSystem.unregisterVolunteer(eventId, volunteer.email);
+                alert(result.message);
+                if (result.success) {
+                    loadVolunteerEvents();
+                    updateVolunteerStats();
+                    loadRecommendedEvents();
+                }
+            }
+        }
+
+        // Обработка формы редактирования профиля
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                fullName: document.getElementById('editFullName').value,
+                email: document.getElementById('editEmail').value,
+                phone: document.getElementById('editPhone').value,
+                city: document.getElementById('editCity').value,
+                about: document.getElementById('editAbout').value
+            };
+
+            const success = volunteerAuthSystem.updateProfile(formData);
+            
+            if (success) {
+                alert('Профиль успешно обновлен!');
+                closeProfileModal();
+                loadVolunteerData();
+                loadVolunteerEvents();
+                updateVolunteerStats();
+            } else {
+                alert('Ошибка при обновлении профиля');
+            }
+        });
+
+        // Вспомогательные функции
+        function getCategoryColorClass(category) {
+            const colors = {
+                'Экология': 'bg-green-500',
+                'Спорт': 'bg-red-500',
+                'Образование': 'bg-blue-500',
+                'Социальная помощь': 'bg-purple-500',
+                'Благоустройство': 'bg-orange-500',
+                'Культура': 'bg-pink-500'
+            };
+            return colors[category] || 'bg-blue-500';
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
+        }
+    </script>
+</body>
+</html>
